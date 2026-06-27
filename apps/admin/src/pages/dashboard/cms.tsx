@@ -74,7 +74,7 @@ const CmsPage = () => {
     <div className="space-y-6">
       <div>
         <p className="vc-wordmark text-xs text-gold-700">Storefront</p>
-        <h1 className="mt-2 font-serif text-4xl text-primary-900">CMS / Banners</h1>
+        <h1 className="mt-2 font-serif text-3xl text-primary-900 sm:text-4xl">CMS / Banners</h1>
         <p className="mt-1 text-sm text-gray-500">
           Manage the hero banners shown on the storefront landing.
         </p>
@@ -122,50 +122,52 @@ const CmsPage = () => {
             <Loader color="primary" />
           </div>
         ) : (
-          <Table verticalSpacing="sm" highlightOnHover>
-            <Table.Thead>
-              <Table.Tr>
-                <Table.Th>Preview</Table.Th>
-                <Table.Th>Title</Table.Th>
-                <Table.Th>CTA</Table.Th>
-                <Table.Th>Order</Table.Th>
-                <Table.Th>Active</Table.Th>
-                <Table.Th>Actions</Table.Th>
-              </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>
-              {banners?.map((b) => (
-                <Table.Tr key={b.id}>
-                  <Table.Td>
-                    {}
-                    <img
-                      src={b.imageUrl}
-                      alt={b.title}
-                      className="h-12 w-24 rounded border border-gold-200 object-cover"
-                    />
-                  </Table.Td>
-                  <Table.Td className="font-medium text-primary-900">{b.title}</Table.Td>
-                  <Table.Td className="text-xs text-gray-400">{b.ctaUrl ?? '—'}</Table.Td>
-                  <Table.Td>{b.order}</Table.Td>
-                  <Table.Td>
-                    <Switch checked={b.isActive} onChange={() => toggle(b)} color="primary" />
-                  </Table.Td>
-                  <Table.Td>
-                    <Button size="xs" color="danger" variant="light" onClick={() => del(b)}>
-                      Delete
-                    </Button>
-                  </Table.Td>
-                </Table.Tr>
-              ))}
-              {banners?.length === 0 && (
+          <Table.ScrollContainer minWidth={680}>
+            <Table verticalSpacing="sm" highlightOnHover>
+              <Table.Thead>
                 <Table.Tr>
-                  <Table.Td colSpan={6} className="text-center text-sm text-gray-400">
-                    No banners yet — add one above.
-                  </Table.Td>
+                  <Table.Th>Preview</Table.Th>
+                  <Table.Th>Title</Table.Th>
+                  <Table.Th>CTA</Table.Th>
+                  <Table.Th>Order</Table.Th>
+                  <Table.Th>Active</Table.Th>
+                  <Table.Th>Actions</Table.Th>
                 </Table.Tr>
-              )}
-            </Table.Tbody>
-          </Table>
+              </Table.Thead>
+              <Table.Tbody>
+                {banners?.map((b) => (
+                  <Table.Tr key={b.id}>
+                    <Table.Td>
+                      {}
+                      <img
+                        src={b.imageUrl}
+                        alt={b.title}
+                        className="h-12 w-24 rounded border border-gold-200 object-cover"
+                      />
+                    </Table.Td>
+                    <Table.Td className="font-medium text-primary-900">{b.title}</Table.Td>
+                    <Table.Td className="text-xs text-gray-400">{b.ctaUrl ?? '—'}</Table.Td>
+                    <Table.Td>{b.order}</Table.Td>
+                    <Table.Td>
+                      <Switch checked={b.isActive} onChange={() => toggle(b)} color="primary" />
+                    </Table.Td>
+                    <Table.Td>
+                      <Button size="xs" color="danger" variant="light" onClick={() => del(b)}>
+                        Delete
+                      </Button>
+                    </Table.Td>
+                  </Table.Tr>
+                ))}
+                {banners?.length === 0 && (
+                  <Table.Tr>
+                    <Table.Td colSpan={6} className="text-center text-sm text-gray-400">
+                      No banners yet — add one above.
+                    </Table.Td>
+                  </Table.Tr>
+                )}
+              </Table.Tbody>
+            </Table>
+          </Table.ScrollContainer>
         )}
       </div>
     </div>

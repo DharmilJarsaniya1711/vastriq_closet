@@ -217,26 +217,28 @@ const OutfitsPage = () => {
   return (
     <StoreShell>
       <NextSeo title="Browse outfits — VASTRIQ CLOSET" />
-      <section className="container mx-auto px-6 py-10">
+      <section className="container mx-auto px-4 py-8 sm:px-6 sm:py-10">
         {/* Heading + sort */}
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="vc-wordmark text-xs text-gold-700">Collection</p>
-            <h1 className="mt-2 font-serif text-4xl text-primary-900">Browse outfits</h1>
+            <h1 className="mt-2 font-serif text-3xl text-primary-900 sm:text-4xl">
+              Browse outfits
+            </h1>
             <p className="mt-1 text-sm text-gray-500">
               {isLoading
                 ? 'Loading…'
                 : `${items.length} outfit${items.length === 1 ? '' : 's'} on rent`}
             </p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex w-full items-center gap-2 sm:w-auto">
             <Button variant="default" radius="md" className="lg:hidden" onClick={drawerCtl.open}>
               Filters{activeChips.length ? ` (${activeChips.length})` : ''}
             </Button>
             <Select
               aria-label="Sort"
               radius="md"
-              w={200}
+              className="flex-1 sm:w-[200px] sm:flex-none"
               data={SORTS}
               value={sort}
               onChange={(v) => setParam('sort', v && v !== 'newest' ? v : undefined)}
@@ -331,7 +333,7 @@ const OutfitsPage = () => {
                 )}
               </div>
             ) : (
-              <div className="grid grid-cols-2 gap-6 md:grid-cols-3 xl:grid-cols-4">
+              <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 xl:grid-cols-4">
                 {items.map((o) => (
                   <OutfitCard
                     key={o.slug}

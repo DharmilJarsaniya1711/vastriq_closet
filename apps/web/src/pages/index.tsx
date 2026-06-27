@@ -50,13 +50,13 @@ const Home = () => (
 
     {/* Hero */}
     <section className="relative overflow-hidden">
-      <div className="container mx-auto grid gap-12 px-6 py-20 md:grid-cols-2 md:items-center md:py-28">
+      <div className="container mx-auto grid gap-8 px-4 py-12 sm:px-6 sm:py-16 md:grid-cols-2 md:items-center md:py-28">
         <div>
           <p className="vc-wordmark mb-4 text-xs text-gold-700">Premium Ethnic Wear · On Rent</p>
-          <h1 className="text-5xl leading-tight text-primary-900 md:text-6xl">
+          <h1 className="text-3xl leading-tight text-primary-900 sm:text-5xl md:text-6xl">
             Royal couture for the moments that matter.
           </h1>
-          <p className="mt-6 max-w-lg text-lg leading-relaxed text-gray-500">
+          <p className="mt-6 max-w-lg text-base leading-relaxed text-gray-500 sm:text-lg">
             Hand-picked lehengas, sherwanis and statement jewellery — discover pieces to rent for
             the days you need them, directly from their owners.
           </p>
@@ -74,7 +74,7 @@ const Home = () => (
               List your outfits
             </Button>
           </div>
-          <div className="mt-10 flex items-center gap-6 text-sm text-gray-400">
+          <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-400">
             <span>✓ Curated &amp; moderated listings</span>
             <span>✓ Deal directly with owners</span>
           </div>
@@ -100,11 +100,11 @@ const Home = () => (
     </div>
 
     {/* Shop by Occasion */}
-    <section className="container mx-auto px-6 py-20">
-      <div className="mb-10 flex items-end justify-between">
+    <section className="container mx-auto px-4 py-12 sm:px-6 sm:py-20">
+      <div className="mb-8 flex items-end justify-between sm:mb-10">
         <div>
           <p className="vc-wordmark text-xs text-gold-700">Curated</p>
-          <h2 className="mt-2 text-4xl text-primary-900">Shop by Occasion</h2>
+          <h2 className="mt-2 text-3xl text-primary-900 sm:text-4xl">Shop by Occasion</h2>
         </div>
         <Link href="/occasions" className="text-sm font-medium text-primary-700 hover:underline">
           View all
@@ -128,11 +128,11 @@ const Home = () => (
     </section>
 
     {/* Shop by Category */}
-    <section className="bg-cream-100 py-20">
-      <div className="container mx-auto px-6">
-        <div className="mb-10 text-center">
+    <section className="bg-cream-100 py-12 sm:py-20">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="mb-8 text-center sm:mb-10">
           <p className="vc-wordmark text-xs text-gold-700">Categories</p>
-          <h2 className="mt-2 text-4xl text-primary-900">Find your fit</h2>
+          <h2 className="mt-2 text-3xl text-primary-900 sm:text-4xl">Find your fit</h2>
         </div>
         <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-6">
           {categories.map((c) => (
@@ -151,10 +151,10 @@ const Home = () => (
     </section>
 
     {/* How it works */}
-    <section className="container mx-auto px-6 py-20">
-      <div className="mb-12 text-center">
+    <section className="container mx-auto px-4 py-12 sm:px-6 sm:py-20">
+      <div className="mb-10 text-center sm:mb-12">
         <p className="vc-wordmark text-xs text-gold-700">How it works</p>
-        <h2 className="mt-2 text-4xl text-primary-900">Four steps to your moment</h2>
+        <h2 className="mt-2 text-3xl text-primary-900 sm:text-4xl">Four steps to your moment</h2>
       </div>
       <div className="grid gap-8 md:grid-cols-4">
         {steps.map((s) => (
@@ -168,11 +168,11 @@ const Home = () => (
     </section>
 
     {/* Owner CTA */}
-    <section className="bg-primary-900 py-20 text-cream-50">
-      <div className="container mx-auto grid items-center gap-10 px-6 md:grid-cols-2">
+    <section className="bg-primary-900 py-12 text-cream-50 sm:py-20">
+      <div className="container mx-auto grid items-center gap-8 px-4 sm:gap-10 sm:px-6 md:grid-cols-2">
         <div>
           <p className="vc-wordmark text-xs text-gold-200">For Owners</p>
-          <h2 className="mt-2 font-serif text-4xl">Earn from your closet.</h2>
+          <h2 className="mt-2 font-serif text-3xl sm:text-4xl">Earn from your closet.</h2>
           <p className="mt-4 max-w-md leading-relaxed text-cream-100/80">
             List your bridal and festive outfits with VASTRIQ CLOSET and reach renters across the
             country.

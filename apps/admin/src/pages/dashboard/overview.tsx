@@ -22,13 +22,13 @@ const Overview = () => {
     <div className="space-y-8">
       <div>
         <p className="vc-wordmark text-xs text-gold-700">Dashboard</p>
-        <h1 className="mt-2 font-serif text-4xl text-primary-900">Welcome back</h1>
+        <h1 className="mt-2 font-serif text-3xl text-primary-900 sm:text-4xl">Welcome back</h1>
         <p className="mt-1 text-sm text-gray-500">
           A snapshot of how Vastriq Closet is doing today.
         </p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <KpiCard label="Users" value={kpis?.users ?? 0} icon="tabler:users" />
         <KpiCard label="Active listings" value={kpis?.activeOutfits ?? 0} icon="tabler:hanger" />
         <KpiCard label="Pending moderation" value={kpis?.pendingOutfits ?? 0} icon="tabler:clock" />
