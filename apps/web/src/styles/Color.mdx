@@ -1,0 +1,35 @@
+import { Meta } from '@storybook/blocks';
+import { mantine } from '@mejjos/theme';
+
+<Meta title="Colors" />
+
+export const ColorSwatch = ({ colorName, shade, hexCode }) => (
+  <div>
+    <div
+      className={`border bg-${colorName}-${shade} h-10 w-20 rounded-lg`}
+      style={{ backgroundColor: hexCode }}
+    />
+    <p className="my-1 text-sm font-normal">{shade}</p>
+    <p className="my-1 text-sm font-normal">{hexCode}</p>
+  </div>
+);
+
+export const ColorPalette = ({ title, colors }) => (
+  <>
+    <h2 className="capitalize">{title}</h2>
+    <div className="flex w-full flex-wrap gap-4">
+      {Object.entries(colors).map(([shade, hexCode]) => (
+        <ColorSwatch key={shade} colorName={title.toLowerCase()} shade={shade} hexCode={hexCode} />
+      ))}
+    </div>
+  </>
+);
+
+# Color Palettes
+
+---
+
+{Object.entries(mantine.colors).map(([name, shades]) => (
+
+<ColorPalette key={name} title={name} colors={shades} />
+))}

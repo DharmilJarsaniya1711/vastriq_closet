@@ -1,0 +1,106 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Testing and Code Quality Standards
+
+## Testing Requirements
+- Implement unit tests with Jest
+- Focus on isolated component behavior
+- Use Mock Service Worker (MSW) for API mocking
+- Document components with Storybook
+- Maintain minimum 80% code coverage
+
+## Code Quality Tools
+- ESLint for code linting
+- Prettier for code formatting
+- TypeScript for type checking
+- Unified configuration in `tsconfig.json`
+
+## Environment Management
+- Store sensitive data in `.env` files
+- Follow strict access control for environment variables
+- Use proper environment variable typing
+
+## CI/CD Pipeline
+- Automated testing on pull requests
+- Code coverage verification
+- Linting and type checking
+- Deployment automation
+
+## Pre-Merge Checklist
+1. Code Quality:
+   - All linting rules pass
+   - Type checking succeeds
+   - Code formatting is consistent
+   
+2. Testing:
+   - Unit tests pass
+   - Integration tests pass
+   - Code coverage meets threshold
+   
+3. Review Process:
+   - Peer review completed
+   - Documentation updated
+   - No security vulnerabilities
+
+## Example Test Structure
+```typescript
+import { render, screen } from '@testing-library/react';
+import { MyComponent } from './MyComponent';
+
+describe('MyComponent', () => {
+  it('should render correctly', () => {
+    render(<MyComponent />);
+    expect(screen.getByRole('button')).toBeInTheDocument();
+  });
+
+  it('should handle user interactions', () => {
+    // Test implementation
+  });
+});
+```
+
+## Storybook Documentation
+```typescript
+// Component.stories.tsx
+import type { Meta, StoryObj } from '@storybook/react';
+import { MyComponent } from './MyComponent';
+
+const meta: Meta<typeof MyComponent> = {
+  component: MyComponent,
+  title: 'Components/MyComponent',
+};
+
+export default meta;
+type Story = StoryObj<typeof MyComponent>;
+
+export const Default: Story = {
+  args: {
+    // Component props
+  },
+};
+```
+
+## MSW API Mocking
+```typescript
+// handlers.ts
+import { rest } from 'msw';
+
+export const handlers = [
+  rest.get('/api/data', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        // Mock response data
+      })
+    );
+  }),
+];
+```

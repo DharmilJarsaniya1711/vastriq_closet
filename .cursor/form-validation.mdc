@@ -1,0 +1,146 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: This document outlines the best practices and patterns for implementing form validation using Yup in the mejjos project.
+globs: 
+alwaysApply: true
+---
+# Form Validation Best Practices with Yup
+
+This document outlines the best practices and patterns for implementing form validation using Yup in the mejjos project.
+
+## Core Principles
+
+1. Use TypeScript with Yup for type-safe validation
+2. Implement conditional validation using appropriate methods
+3. Handle error messages consistently
+4. Structure validation schemas for reusability
+
+## Validation Patterns
+
+### Conditional Validation
+
+When implementing conditional validation that depends on multiple fields:
+
+```typescript
+// ✅ Recommended approach for complex conditions
+yup.string().when('type', {
+  is: 'Mail',
+  then: (schema) => schema.test({
+    name: 'conditional-required',
+    test: function(value, context) {
+      const { isNewAddress, addressId, address } = context.parent as MyFormType;
+      
+      if (!value) {
+        // Conditional error messages based on form state
+        if (isNewAddress === false && !addressId) {
+          return context.createError({
+            message: 'Field is required. Choose an address first'
+          });
+        }
+        
+        return context.createError({
+          message: 'Field is required'
+        });
+      }
+      
+      return true;
+    }
+  })
+})
+```
+
+### Accessing Form Values
+
+Always access form values through the test context:
+
+```typescript
+// ✅ Safe way to access form values
+schema.test({
+  test: function(value, context) {
+    const formValues = context.parent as MyFormType;
+    // Now use formValues safely
+  }
+})
+
+// ❌ Avoid this approach - may cause "Cannot read properties of undefined" errors
+schema.required(function() {
+  const parent = this.parent; // this might be undefined
+})
+```
+
+### Error Message Creation
+
+Create error messages using the context's createError method:
+
+```typescript
+// ✅ Proper way to create error messages
+return context.createError({
+  message: 'Custom error message here'
+});
+
+// ❌ Avoid returning string directly in test functions
+return 'Error message'; // Not type-safe
+```
+
+## TypeScript Integration
+
+Always use proper typing for the validation context:
+
+```typescript
+interface MyFormType {
+  field1: string;
+  field2: boolean;
+  nested?: {
+    field3: string;
+  };
+}
+
+schema.test({
+  test: function(value, context) {
+    const { field1, field2, nested } = context.parent as MyFormType;
+    // Now TypeScript knows the types
+  }
+})
+```
+
+## Common Patterns
+
+### Dependent Field Validation
+
+```typescript
+yup.string().when(['dependentField1', 'dependentField2'], {
+  is: (field1, field2) => field1 === 'value' && field2 === true,
+  then: (schema) => schema.required('Required when conditions are met'),
+  otherwise: (schema) => schema.optional()
+})
+```
+
+### Dynamic Error Messages
+
+```typescript
+schema.test({
+  test: function(value, context) {
+    const { field1 } = context.parent as MyFormType;
+    
+    if (!value) {
+      const message = field1 
+        ? `Required when ${field1} is selected` 
+        : 'Required field';
+        
+      return context.createError({ message });
+    }
+    
+    return true;
+  }
+})
+```
+
+## Project Examples
+
+See these files for reference implementations:
+- `@mejjos/apps/admin/src/components/modules/users/user-details/tabs/schema.ts`
+- `@mejjos/apps/admin/src/components/modules/users/schema.ts`

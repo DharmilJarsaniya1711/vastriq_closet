@@ -1,0 +1,82 @@
+---
+description: This rules file defines what components are available throughout the project & its usage guidelines
+globs: 
+alwaysApply: true
+---
+# Shared Components Documentation
+
+## Overview
+Location: `./apps/{Module Name}/src/components/shared`
+A comprehensive collection of reusable UI components used throughout the application.
+
+## Component Categories
+
+### Display Components
+```typescript
+{
+  Badge: 'Visual indicator for status/labels',
+  Card: 'Container component',
+  Table: 'Data display with sorting/filtering',
+  OrderTable: 'Specialized table for orders',
+  Pagination: 'Page navigation',
+  Tooltip: 'Hover information'
+}
+```
+
+### Navigation Components
+```typescript
+{
+  Menu: 'Navigation menu',
+  NavItem: 'Navigation item',
+  Tabs: 'Tab navigation',
+  Stepper: 'Multi-step navigation'
+}
+```
+
+### Modal Components
+```typescript
+{
+  DeleteModal: 'Confirmation for deletions',
+  InfoModal: 'Information display',
+  Modal: 'Base modal component',
+  Drawer: 'Sliding panel'
+}
+```
+
+### Special Input Components
+```typescript
+{
+  CustomAutocomplete: 'Enhanced autocomplete with custom rendering',
+  LocationInput: 'Google Maps location picker',
+  MultiFileUpload: 'Multiple file upload handler',
+  PhoneInput: 'Phone number input with formatting'
+}
+```
+
+### Feedback Components
+- `ComingSoon`: Feature placeholder component
+- `UnauthorizedComponent`: Access denied display
+
+### Integration Components
+- `InjectGoogleMaps`: Google Maps integration component
+- `LocationInput`: Location selection component
+
+## Integration Notes
+```typescript
+{
+  form_library: 'react-hook-form',
+  ui_framework: 'mantine',
+  styling: 'tailwind',
+  validation: 'yup/zod supported'
+}
+```
+
+## Component Implementation Guidelines
+1. Each component should be modular and follow consistent patterns
+2. Structure components with separate files for:
+   - Component logic
+   - Types
+   - Styles
+3. Maintain consistent prop patterns across components
+4. Follow the established styling guidelines using Tailwind and Mantine
+5. Implement proper TypeScript types and interfaces

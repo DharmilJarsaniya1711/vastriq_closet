@@ -1,0 +1,144 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: This rules file defines how to integrate an API in admin or web app
+globs: 
+alwaysApply: true
+---
+# API Integration Guidelines
+
+## Type Definition Structure
+
+### 1. Request Types
+Location: `/apps/{admin or web}/src/types/requests/module.types.ts`
+```typescript
+// Define interface for API request
+export interface DataTypeForApiRequest extends IDocument {
+  // ... other fields
+}
+```
+
+### 2. Response Types
+Location: `/apps/{admin or web}/src/types/entities/module.types.ts`
+```typescript
+// Define interface for API response
+export interface DataTypeForApiResponse extends IDocument {
+  // ... other fields
+}
+```
+
+## Implementation Steps
+
+### 1. API Function Implementation
+Location: `apis/requests/module.requests.ts`
+```typescript
+import { http } from '../http'
+
+export const getDataRequest = async () =>
+  http.get<ApiResponse<{ data: DataType[] }>>('/endpoint');
+```
+
+### 2. Query Hook Implementation
+Location: `apis/queries/module.queries.ts`
+```typescript
+export const useData = () => useQuery({
+  queryKey: ['unique-key'],
+  queryFn: async () => {
+    const res = await getDataRequest();
+    return res.data.data;
+  },
+});
+
+export const useCreateData = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: CreateDataRequest) => {
+      const res = await createData(data);
+      return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['unique-key'] });
+    },
+    onError: onApiError,
+  });
+};
+```
+### 3. Mutation Query Hook Implementation with multiple queries invalidation
+Location: `apis/queries/module.queries.ts`
+```typescript
+export const useData = () => useQuery({
+  queryKey: ['unique-key'],
+  queryFn: async () => {
+    const res = await getDataRequest();
+    return res.data.data;
+  },
+});
+export const useDataMany = () => useQuery({
+  queryKey: ['unique-keys'],
+  queryFn: async () => {
+    const res = await getDataRequest();
+    return res.data.data;
+  },
+});
+
+export const useCreateData = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: CreateDataRequest) => {
+      const res = await createData(data);
+      return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ predicate: query => ['unique-key','unique-keys'].includes(query.queryKey[0] as string) });
+    },
+    onError: onApiError,
+  });
+};
+```
+
+### 4. Component Usage
+```typescript
+const MyComponent = () => {
+  const dataQuery = useData();
+  
+  return (
+    <div>
+      {dataQuery.data?.map((item) => (
+        <ItemComponent key={item.id} item={item} />
+      ))}
+    </div>
+  );
+};
+```
+
+## Important Guidelines
+
+1. Type Definitions:
+   - Reuse existing interfaces when possible
+   - Import & extend `IDocument` & `IPagination` from `@common.ts` for standard fields
+   - Keep types in appropriate directories (`requests/` or `entities/`)
+
+2. API Functions:
+   - Use environment variables for base URLs
+   - Implement proper error handling
+   - Follow RESTful conventions
+
+3. Query Hooks:
+   - Use meaningful query keys
+   - Implement proper cache invalidation with single query and multiple queries
+   - Handle loading and error states
+
+4. Component Integration:
+   - Never destructure query hooks
+   - Handle loading and error states appropriately
+   - Follow proper TypeScript practices
+
+## Environment Variables
+- Check existing `.env` files for base URLs
+- Create new variables if needed
+- Follow naming conventions:
+  - Admin: `VITE_PUBLIC_*`
+  - Web: `NEXT_PUBLIC_*`

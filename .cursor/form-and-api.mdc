@@ -1,0 +1,123 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: This rules file defines how to integrate a form + submission in API
+globs: 
+alwaysApply: true
+---
+# Form Handling and API Integration
+
+## Form Implementation Guidelines
+1. Always use react-hook-form library
+2. Form implementation structure:
+   ```typescript
+   // Component File Structure
+   ├── Form Schema (yup)
+   ├── Form State Management
+   ├── API Integration
+   └── Component Logic
+   ```
+
+## API Integration Pattern
+```
+/apis/
+├── queries/ (Read operations)
+│   ├── auth.queries.ts
+│   ├── users.queries.ts
+├── requests/ (Write operations)
+    ├── auth.requests.ts
+    └── users.requests.ts
+```
+
+## File Organization Rules
+1. API Request Schema:
+   - Location: `./types/requests/<module-name>.requests.ts`
+   - Import in: `./types/requests/index.ts`
+
+2. API Functions:
+   - Location: `./apis/requests/<module-name>.requests.ts`
+   - Purpose: Handle API calls and data transformation
+
+3. Query Hooks:
+   - Location: `./apis/queries/<module-name>.queries.ts`
+   - Import: Use in component files
+
+4. Entity Interfaces:
+   - Location: `./types/entities/<module-name>.requests.ts`
+   - Import in: `./types/entities/index.ts`
+
+## Form Components
+```typescript
+// Available Controlled Components
+{
+  Autocomplete: 'ControlledAutocomplete',
+  Checkbox: 'ControlledCheckbox',
+  ColorInput: 'ControlledColorInput',
+  CreatableSelect: 'ControlledCreatableSelect',
+  DatePickerInput: 'ControlledDatePickerInput',
+  FileUpload: 'ControlledFileUpload',
+  MonthPickerInput: 'ControlledMonthPickerInput',
+  MultiSelect: 'ControlledMultiSelect',
+  NumberInput: 'ControlledNumberInput',
+  PasswordInput: 'ControlledPasswordInput',
+  PinInput: 'ControlledPinInput',
+  Radio: 'ControlledRadio',
+  RTE: 'ControlledRichTextEditor',
+  Select: 'ControlledSelect',
+  Switch: 'ControlledSwitch',
+  TextInput: 'ControlledTextInput',
+  Textarea: 'ControlledTextarea',
+  YearPickerInput: 'ControlledYearPickerInput'
+}
+```
+
+## Form Component Usage
+```typescript
+// Required Setup
+{
+  required_wrapper: '<FormProvider methods={methods}>',
+  required_props: {
+    name: 'string (field name in form)',
+    control: 'provided by FormProvider'
+  }
+}
+
+// Example Implementation
+import { useForm, FormProvider } from 'react-hook-form';
+import { ControlledTextInput } from '@/components/shared/form';
+
+const MyForm = () => {
+  const methods = useForm({
+    // form configuration
+  });
+
+  return (
+    <FormProvider {...methods}>
+      <ControlledTextInput
+        name="fieldName"
+        label="Field Label"
+      />
+    </FormProvider>
+  );
+};
+```
+
+## Component Properties Pattern
+```typescript
+{
+  base_props: {
+    label: 'string | ReactNode',
+    error: 'string | boolean',
+    required: 'boolean',
+    disabled: 'boolean'
+  },
+  controlled_props: {
+    name: 'string (required)',
+    control: 'Control<FieldValues>',
+    rules: 'RegisterOptions'
+  }
+}
+```

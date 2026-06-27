@@ -1,0 +1,107 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# UI Generation Guidelines
+
+## Core Principles
+
+### Component Libraries
+- Use Mantine for pre-built components
+- Customize with TailwindCSS utilities
+- Never use HTML style attributes
+
+### Styling Best Practices
+1. Component Customization:
+   - Use `classNames` prop for Mantine components
+   - Use `cn()` from `@helper.ts` for class merging
+   - Use TailwindCSS primary color instead of Mantine's
+
+2. Structure:
+   - Use `<div />` for non-clickable cards/sections
+   - Keep components simple and modular
+   - Follow atomic design principles
+
+## Example Implementation
+
+```typescript
+// ❌ Don't do this
+const BadComponent = () => (
+  <div style={{ padding: '1rem' }}>
+    <Button style={{ backgroundColor: 'blue' }}>
+      Click me
+    </Button>
+  </div>
+);
+
+// ✅ Do this instead
+import { cn } from '@/utils/helpers';
+import { Button } from '@mantine/core';
+
+const GoodComponent = () => (
+  <div className="p-4">
+    <Button 
+      classNames={{
+        root: cn('bg-primary hover:bg-primary/90')
+      }}
+    >
+      Click me
+    </Button>
+  </div>
+);
+```
+
+## Guidelines
+
+### 1. Component Structure
+- Keep components focused and single-purpose
+- Break down complex UIs into smaller components
+- Maintain clear component hierarchy
+
+### 2. Styling Hierarchy
+1. TailwindCSS for:
+   - Layout and spacing
+   - Custom styling
+   - Responsive design
+
+2. Mantine for:
+   - Complex UI components
+   - Interactive elements
+   - Form controls
+
+### 3. Class Organization
+- Use semantic class names
+- Group related classes together
+- Use `cn()` for conditional classes
+
+```typescript
+const className = cn(
+  'base-styles',
+  isActive && 'active-styles',
+  variant === 'primary' && 'primary-styles'
+);
+```
+
+### 4. Best Practices
+- Maintain consistent spacing
+- Follow responsive design patterns
+- Use proper semantic HTML elements
+- Keep styling close to components
+
+### 5. Things to Avoid
+- Inline styles
+- Direct style modifications
+- Complex nested selectors
+- Mixed styling approaches
+
+## Code Quality
+- Maintain component reusability
+- Follow DRY principles
+- Keep styling consistent
+- Document complex styling decisions

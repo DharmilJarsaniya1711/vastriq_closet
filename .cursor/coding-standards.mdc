@@ -1,0 +1,79 @@
+---
+description: This rules file defines how write code in this project
+globs: 
+alwaysApply: true
+---
+# Coding Standards and Best Practices
+
+## Component Development
+- Use functional components with TypeScript
+- Follow single responsibility principle
+- Decompose large components for maintainability
+- Implement lazy loading for optimized performance
+
+## Styling Guidelines
+- Use TailwindCSS for utility-first styling
+- Complement with Mantine for advanced UI components
+- Never use inline "style" attributes
+- Use `cn()` function from `@/utils/helpers.ts` for class merging
+- Avoid using Mantine's `<Text>` component, use tailwind classes with `<p>` or `<span>` tags
+- Use Mantine's `Button` component (default: small & contained)
+
+## State Management
+- Server State: TanStack Query
+  - Never destructure react-query hooks
+  - Use dot notation for accessing query data
+- Client State: Zustand for local state
+- Forms: react-hook-form with yup validation
+  - Never include form objects in useEffect dependencies
+
+## Code Organization
+- Avoid complex logic in component return statements
+- Don't declare arrays directly in components
+- Use react hooks for complex logic
+- Keep components focused and single-purpose
+
+## Icon Usage
+```tsx
+// Use @iconify-icon/react for icons
+import { Icon } from '@iconify-icon/react';
+<Icon icon="tabler:search" size={16} />
+```
+
+## Example: Good Component Structure
+```typescript
+import { useForm } from 'react-hook-form';
+import { Button } from '@mantine/core';
+import { cn } from '@/utils/helpers';
+
+const GoodComponent = () => {
+  // ✅ Use hook directly
+  const query = useQuery(...);
+  
+  // ✅ Form configuration in component
+  const form = useForm({
+    // configuration
+  });
+  
+  // ✅ Clean JSX with tailwind classes
+  return (
+    <div className={cn('flex flex-col gap-4', 'p-4')}>
+      <Button size="sm">Submit</Button>
+    </div>
+  );
+};
+```
+
+## Example: Practices to Avoid
+```typescript
+const BadComponent = () => {
+  // ❌ Don't destructure react-query
+  const { data } = useQuery(...);
+  
+  // ❌ Don't use inline styles
+  return <div style={{ padding: '1rem' }}>...</div>;
+  
+  // ❌ Don't declare arrays in component
+  const items = ['item1', 'item2'];
+};
+```

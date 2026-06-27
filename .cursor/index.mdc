@@ -1,0 +1,99 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Mejjos Project - Master Rule Index
+
+This document serves as the central index for all active Cursor rules within this repository, organized by category. These rules define processes, structures, and guidelines for development of the Mejjos project.
+
+## Core & General
+
+Fundamental project structure, setup, and general development guidelines.
+
+| Rule File                          | Description                                                 |
+| :--------------------------------- | :---------------------------------------------------------- |
+| @project-structure.mdc             | Core project structure and monorepo organization            |
+| @coding-standards.mdc              | Coding standards and best practices for development         |
+
+## Frontend & UI
+
+Guidelines for building user interfaces and handling frontend logic.
+
+| Rule File                          | Description                                                 |
+| :--------------------------------- | :---------------------------------------------------------- |
+| @shared-components.mdc             | Shared UI components documentation and usage                |
+| @ui-generation.mdc                 | UI generation and styling guidelines                        |
+| @api-integration.mdc               | API integration patterns and best practices                 |
+| @form-and-api.mdc                  | Form handling and API integration patterns                  |
+| @form-validation.mdc               | Best practices for form validation using Yup                |
+
+## API & Data
+
+| Rule File                          | Description                                                 |
+| :--------------------------------- | :---------------------------------------------------------- |
+| @api-pagination.mdc                | API pagination response structure and infinite query patterns|
+
+## Testing & Quality
+
+Guidelines for testing, code quality, and deployment.
+
+| Rule File                          | Description                                                 |
+| :--------------------------------- | :---------------------------------------------------------- |
+| @testing-and-quality.mdc           | Testing, code quality, and CI/CD standards                  |
+
+## Quick Reference
+
+### Essential File Structure
+```
+@mejjos/
+├── apps/
+│   ├── admin/ (Vite + React)
+│   └── web/ (Next.js)
+├── packages/
+└── configs/
+```
+
+### Key Development Guidelines
+
+#### Component Development
+- Use functional components with TypeScript
+- Follow single responsibility principle
+- Place shared components in `./apps/{Module Name}/src/components/shared`
+
+#### Styling
+- Use TailwindCSS for utility-first styling
+- Use Mantine for advanced UI components
+- Use `cn()` function for class merging
+- Avoid inline styles
+
+#### Forms & API
+- Use react-hook-form with yup validation
+- Follow API integration patterns
+- Maintain proper type definitions
+- Use test() method for complex conditional validation in Yup schemas
+
+#### Testing
+- Implement Jest unit tests
+- Use MSW for API mocking
+- Document with Storybook
+- Maintain 80% code coverage
+
+## Rule Application Priority
+
+| Rule Category          | Priority | Applies To                    |
+|-----------------------|----------|-------------------------------|
+| Core & General        | High     | All project files            |
+| Frontend & UI         | High     | UI and component files       |
+| Testing & Quality     | High     | Test files & CI/CD           |
+
+## Additional Resources
+
+- [TanStack Query Documentation](mdc:@mejjos/@mejjos/@mejjos/https:/tanstack.com/query/v4)
+- [Next.js Documentation](mdc:@mejjos/@mejjos/@mejjos/https:/nextjs.org/docs)
+- [Mantine UI](mdc:@mejjos/@mejjos/@mejjos/https:/mantine.dev)
+- [TailwindCSS](mdc:@mejjos/@mejjos/@mejjos/https:/tailwindcss.com)
+
+---
+
+For detailed information about each rule set, please refer to the individual rule files in the `.cursor/rules/` directory. Rules are maintained and updated regularly to ensure they reflect current best practices and project requirements.

@@ -1,0 +1,125 @@
+import { MantineColorsTuple } from '@mantine/core';
+
+// VASTRIQ CLOSET — Royal Emerald & Champagne palette.
+// `primary` is the emerald used for buttons, headers, links.
+// `gold` is the champagne accent for highlights, price tags, dividers.
+// `cream` is the warm page/card background.
+export const tailwindColorsPalette = {
+  primary: {
+    50: '#E8F2EE',
+    100: '#C7E0D6',
+    200: '#9EC8B7',
+    300: '#6DAB91',
+    400: '#3F9170',
+    500: '#2E8B6F',
+    600: '#1F7659',
+    700: '#1B6B53',
+    800: '#13573F',
+    900: '#0F4C3A',
+    950: '#08311F',
+    DEFAULT: '#0F4C3A',
+  },
+  gold: {
+    25: '#FFFCF0',
+    50: '#FBF6E2',
+    100: '#F6EBBE',
+    200: '#F2E6B6',
+    300: '#EAD37A',
+    400: '#DEBE54',
+    500: '#D4AF37',
+    600: '#B8860B',
+    700: '#9A6F08',
+    800: '#7C5807',
+    900: '#5F4205',
+    DEFAULT: '#D4AF37',
+  },
+  cream: {
+    25: '#FFFDF9',
+    50: '#FAF7F0',
+    100: '#F2EDE2',
+    200: '#E8DFCB',
+    300: '#D9CCAB',
+    400: '#C6B589',
+    500: '#B19A65',
+    DEFAULT: '#FAF7F0',
+  },
+  blush: {
+    50: '#FBEEEA',
+    100: '#F4D5CC',
+    200: '#E9B3A4',
+    300: '#DD8E78',
+    400: '#D08573',
+    500: '#C97B6B',
+    600: '#A75B4C',
+    700: '#84443A',
+    800: '#5E2F28',
+    900: '#3F1F1B',
+    DEFAULT: '#C97B6B',
+  },
+  warning: {
+    25: '#FFFCF5',
+    50: '#FFFAEB',
+    100: '#FEF0C7',
+    200: '#FEDF89',
+    300: '#FEC84B',
+    400: '#FDB022',
+    500: '#F79009',
+    600: '#DC6803',
+    700: '#B54708',
+    800: '#93370D',
+    900: '#7A2E0E',
+    DEFAULT: '#F79009',
+  },
+  success: {
+    25: '#F6FEF9',
+    50: '#ECFDF3',
+    100: '#D1FADF',
+    200: '#A6F4C5',
+    300: '#6CE9A6',
+    400: '#32D583',
+    500: '#12B76A',
+    600: '#039855',
+    700: '#027A48',
+    800: '#05603A',
+    900: '#054F31',
+    DEFAULT: '#12B76A',
+  },
+  danger: {
+    25: '#FFFBFA',
+    50: '#FEF3F2',
+    100: '#FEE4E2',
+    200: '#FECDCA',
+    300: '#FDA29B',
+    400: '#F97066',
+    500: '#F04438',
+    600: '#D92D20',
+    700: '#B42318',
+    800: '#912018',
+    900: '#7A271A',
+    DEFAULT: '#F04438',
+  },
+  gray: {
+    25: '#FAFAFA',
+    50: '#F2F2F3',
+    100: '#E4E5E7',
+    200: '#AFAFB6',
+    300: '#71717A',
+    400: '#52525B',
+    500: '#3F3F46',
+    600: '#27272A',
+    700: '#161618',
+    800: '#09090B',
+    DEFAULT: '#3F3F46',
+  },
+};
+export type TailwindColorsPaletteKeys = keyof typeof tailwindColorsPalette;
+export const mantineColorsPalette = Object.entries(tailwindColorsPalette).reduce(
+  (acc, [key, colors]) => ({
+    ...acc,
+    [key]: Object.entries(colors)
+      .filter(([k]) => k !== 'DEFAULT')
+      .map(([, v]) => v),
+  }),
+  {} as Record<TailwindColorsPaletteKeys, MantineColorsTuple>
+);
+export type MantineColorsPaletteKeys = keyof typeof mantineColorsPalette;

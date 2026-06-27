@@ -1,0 +1,382 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum UserType {
+  ADMIN
+  USER
+}
+
+enum UserSignupMethod {
+  EMAIL
+  GOOGLE
+  FACEBOOK
+  APPLE
+  PHONE
+}
+
+enum OutfitStatus {
+  DRAFT
+  PENDING
+  ACTIVE
+  REJECTED
+  ARCHIVED
+}
+
+enum OtpChannel {
+  WHATSAPP
+  SMS
+  DEV
+}
+
+enum OtpIntent {
+  LOGIN
+  SIGNUP
+  CHANGE_PHONE
+}
+
+enum UploadDriver {
+  LOCAL
+  IMAGEKIT
+}
+
+enum EnquiryStatus {
+  OPEN
+  RESPONDED
+  CLOSED
+}
+
+enum ReportTargetType {
+  LISTING
+  USER
+  MESSAGE
+}
+
+enum ReportStatus {
+  OPEN
+  REVIEWING
+  ACTIONED
+  DISMISSED
+}
+
+enum ContactQueryStatus {
+  NEW
+  RESOLVED
+}
+
+model User {
+  id               String            @id @default(auto()) @map("_id") @db.ObjectId
+  deletedAt        DateTime?
+  createdAt        DateTime?         @default(now())
+  updatedAt        DateTime?         @updatedAt
+  type             UserType
+  signupMethod     UserSignupMethod
+  email            String?
+  emailVerifiedAt  DateTime?
+  emailTemp        String?
+  password         String?
+  firstName        String?
+  lastName         String?
+  // VASTRIQ CLOSET — single user type (any user can list and rent), phone login only
+  phone            String?           @unique
+  phoneVerifiedAt  DateTime?
+  defaultCityId    String?           @db.ObjectId
+  defaultCity      City?             @relation(fields: [defaultCityId], references: [id])
+  ownerProfile     OwnerProfile?
+  listings         Outfit[]          @relation("OwnerListings")
+  wishlist         WishlistItem[]
+  reviewsAuthored  Review[]          @relation("AuthorReviews")
+  banned           Boolean           @default(false)
+  bannedAt         DateTime?
+  banReason        String?
+  bannedById       String?           @db.ObjectId
+  blockedIds       String[]          @db.ObjectId
+  blockedByIds     String[]          @db.ObjectId
+  deletedById      String?           @db.ObjectId
+  deletedBy        User?             @relation("DeleteByRelation", fields: [deletedById], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  deletedUsers     User[]            @relation("DeleteByRelation")
+  deleteAccountLog DeleteAccountLog?
+  notifications    Notification[]
+  uploads          Upload[]
+  slNo             Int?
+}
+
+model DeleteAccountLog {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime? @default(now())
+  reason    String?
+  comment   String?
+  userId    String    @unique @db.ObjectId
+  user      User      @relation(fields: [userId], references: [id])
+  slNo      Int?
+}
+
+model Notification {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  forId     String   @db.ObjectId
+  for       User     @relation(references: [id], fields: [forId])
+  title     String
+  body      String
+  meta      Json
+  read      Boolean  @default(false)
+}
+
+model Upload {
+  id              String       @id @default(auto()) @map("_id") @db.ObjectId
+  createdBy       User?        @relation(references: [id], fields: [createdById])
+  createdById     String?      @db.ObjectId
+  deletedAt       DateTime?
+  originalFileKey String?
+  fileKey         String?
+  previewKey      String?
+  // ImageKit
+  fileId          String?
+  url             String?
+  driver          UploadDriver
+}
+
+// =====================================================
+// VASTRIQ CLOSET — P2P Rental Marketplace
+// =====================================================
+
+model OtpRequest {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt  DateTime   @default(now())
+  phone      String
+  codeHash   String
+  channel    OtpChannel
+  intent     OtpIntent
+  attempts   Int        @default(0)
+  expiresAt  DateTime
+  consumedAt DateTime?
+
+  @@index([phone, createdAt])
+}
+
+// Optional public display profile for any user who lists (not a separate role/account).
+model OwnerProfile {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @unique @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  brandName String?
+  bio       String?
+  rating    Float    @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id       String     @id @default(auto()) @map("_id") @db.ObjectId
+  slug     String     @unique
+  name     String
+  parentId String?    @db.ObjectId
+  parent   Category?  @relation("CategoryParent", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  children Category[] @relation("CategoryParent")
+  icon     String?
+  order    Int        @default(0)
+  isActive Boolean    @default(true)
+  outfits  Outfit[]
+}
+
+model Occasion {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  slug     String  @unique
+  name     String
+  order    Int     @default(0)
+  isActive Boolean @default(true)
+}
+
+model Color {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  slug     String  @unique
+  name     String
+  hex      String?
+  order    Int     @default(0)
+  isActive Boolean @default(true)
+}
+
+// Platform-wide settings (single document, key = "global").
+model Setting {
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  key                 String   @unique
+  autoApproveListings Boolean  @default(false)
+  featuredCitySlug    String?
+  otpMessageTemplate  String?
+  supportEmail        String?
+  updatedAt           DateTime @updatedAt
+}
+
+model City {
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  slug          String  @unique
+  name          String
+  state         String?
+  isServiceable Boolean @default(true)
+  users         User[]
+}
+
+model Outfit {
+  id              String         @id @default(auto()) @map("_id") @db.ObjectId
+  ownerId         String         @db.ObjectId
+  owner           User           @relation("OwnerListings", fields: [ownerId], references: [id])
+  title           String
+  slug            String         @unique
+  description     String?
+  categoryId      String         @db.ObjectId
+  category        Category       @relation(fields: [categoryId], references: [id])
+  occasionSlugs   String[]
+  color           String?
+  imageUrls       String[]
+  videoUrl        String?
+  mrp             Float?
+  rentPerDay      Float
+  securityDeposit Float          @default(0)
+  citySlugs       String[]
+  availabilityNote String?
+  blackoutDates   DateTime[]
+  status          OutfitStatus   @default(PENDING)
+  rejectionReason String?
+  avgRating       Float          @default(0)
+  totalReviews    Int            @default(0)
+  viewsCount      Int            @default(0)
+  enquiriesCount  Int            @default(0)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  wishlistItems   WishlistItem[]
+  reviews         Review[]
+  enquiries       Enquiry[]
+
+  @@index([status, categoryId])
+  @@index([status])
+}
+
+model WishlistItem {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  outfitId  String   @db.ObjectId
+  outfit    Outfit   @relation(fields: [outfitId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([userId, outfitId])
+}
+
+model Review {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  outfitId   String    @db.ObjectId
+  outfit     Outfit    @relation(fields: [outfitId], references: [id])
+  authorId   String    @db.ObjectId
+  author     User      @relation("AuthorReviews", fields: [authorId], references: [id])
+  rating     Int
+  title      String?
+  body       String?
+  photoUrls  String[]
+  approvedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([outfitId])
+}
+
+// A renter's structured request about a listing. Seeds a conversation.
+model Enquiry {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  outfitId       String        @db.ObjectId
+  outfit         Outfit        @relation(fields: [outfitId], references: [id])
+  requesterId    String        @db.ObjectId
+  ownerId        String        @db.ObjectId
+  fromDate       DateTime?
+  toDate         DateTime?
+  message        String?
+  status         EnquiryStatus @default(OPEN)
+  conversationId String?       @db.ObjectId
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([ownerId, status])
+}
+
+// 1:1 thread between two users, optionally anchored to an outfit.
+model Conversation {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  participantIds String[]  @db.ObjectId
+  outfitId       String?   @db.ObjectId
+  enquiryId      String?   @db.ObjectId
+  lastMessage    String?
+  lastMessageAt  DateTime?
+  unread         Json?
+  messages       Message[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([participantIds])
+  @@index([lastMessageAt])
+}
+
+model Message {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  conversationId String       @db.ObjectId
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  senderId       String       @db.ObjectId
+  body           String
+  attachmentUrls String[]
+  readAt         DateTime?
+  createdAt      DateTime     @default(now())
+
+  @@index([conversationId, createdAt])
+}
+
+model Report {
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
+  targetType  ReportTargetType
+  targetId    String           @db.ObjectId
+  reporterId  String           @db.ObjectId
+  reason      String
+  details     String?
+  evidenceUrls String[]
+  status      ReportStatus     @default(OPEN)
+  handledById String?          @db.ObjectId
+  resolution  String?
+  createdAt   DateTime         @default(now())
+  resolvedAt  DateTime?
+
+  @@index([status, createdAt])
+}
+
+model ContactQuery {
+  id          String             @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  email       String
+  phone       String?
+  subject     String?
+  message     String
+  status      ContactQueryStatus @default(NEW)
+  userId      String?            @db.ObjectId
+  handledById String?            @db.ObjectId
+  createdAt   DateTime           @default(now())
+  resolvedAt  DateTime?
+
+  @@index([status, createdAt])
+}
+
+model Banner {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  imageUrl  String
+  ctaUrl    String?
+  position  String?
+  order     Int       @default(0)
+  isActive  Boolean   @default(true)
+  startsAt  DateTime?
+  endsAt    DateTime?
+  createdAt DateTime  @default(now())
+}

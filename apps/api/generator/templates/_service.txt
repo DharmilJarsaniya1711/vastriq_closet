@@ -1,0 +1,33 @@
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { <% prismaImports %> } from '@prisma/client';
+import { PrismaService } from '../prisma/prisma.service';
+import { UtilService } from '../shared/util/util.service';
+import { Create<% modelName %>Dto, List<% modelName %>Dto, Update<% modelName %>Dto } from './<% modelTransformedName %>.dto';
+
+@Injectable()
+export class <% modelName %>Service {
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly utilService: UtilService,
+  ) {}
+
+  async create(create<% modelName %>Dto: Create<% modelName %>Dto) {
+    <% create %>
+  }
+
+  async findAll(list<% modelName %>Dto: List<% modelName %>Dto) {
+    <% findAll %>
+  }
+
+  async findOne(id: string) {
+    <% findOne %>
+  }
+
+  async update(id: string, update<% modelName %>Dto: Update<% modelName %>Dto) {
+    <% update %>
+  }
+
+  async remove(id: string) {
+    <% remove %>
+  }
+}

@@ -1,0 +1,81 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: API Pagination & Infinite Query Pattern
+globs: 
+alwaysApply: true
+---
+# API Pagination & Infinite Query Pattern
+
+## API Response Structure
+
+All paginated API endpoints **must** return the following structure:
+
+```typescript
+type ApiResponseWithPagination<T, K extends string = 'docs'> = {
+  data: {
+    [key in K]: T[];
+  } & {
+    pagination: {
+      limit: number;
+      currentPage: number;
+      totalDocs: number;
+      totalPages: number;
+      hasNextPage: boolean;
+      hasPrevPage: boolean;
+    };
+  };
+  message?: string;
+};
+```
+
+- The main data array (e.g., `users`, `orders`) must be a named property in `data`.
+- The `pagination` object must be present and accurate.
+
+## Infinite Query Hook Pattern
+
+For all infinite scroll or paginated UIs, use the following pattern:
+
+```typescript
+import { useInfiniteQuery } from '@tanstack/react-query';
+
+export const useInfiniteEntities = (payload: Omit<IPaginatedQuery, 'limit' | 'page'> & { limit?: number }) =>
+  useInfiniteQuery({
+    queryKey: ['entities-infinite', payload],
+    queryFn: async ({ pageParam = 1 }) => {
+      const query = { ...payload, page: pageParam, limit: payload.limit || 50 };
+      const response = await fetchEntities(query);
+      return {
+        entities: response.data.entities,
+        pagination: response.data.pagination,
+      };
+    },
+    getNextPageParam: (lastPage) => {
+      if (!lastPage.pagination.hasNextPage) return undefined;
+      return lastPage.pagination.currentPage + 1;
+    },
+    initialPageParam: 1,
+  });
+```
+
+- Always use the `pagination.hasNextPage` property to determine if more data is available.
+- The hook should accept a payload object for search, sort, and filter parameters.
+- The default page size (`limit`) should be 50 unless overridden.
+
+## UI Usage
+
+- UI components should use the infinite query hook and flatten the data using the correct property (e.g., `data.pages.flatMap(page => page.entities)`).
+- Do not implement data fetching logic directly in UI components.
+
+## TypeScript
+
+- All API responses and payloads must be strongly typed.
+- Use and extend the shared types in `/types` for all API and entity definitions.
+
+---
+
+**See also:**  
+- [TanStack Query Infinite Queries](mdc:@mejjos/@mejjos/https:/tanstack.com/query/v4/docs/framework/react/guides/infinite-queries)

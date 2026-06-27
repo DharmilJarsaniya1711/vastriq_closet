@@ -1,0 +1,150 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Project Structure and Organization
+
+## Overview
+Mejjos is a monorepo-based web application built with React, TypeScript, Vite, and Next.js.
+
+## Monorepo Layout
+```
+Root Directory: @mejjos
+├── apps/
+│   ├── admin/ (Admin Interface: Vite + React)
+│   └── web/ (Public Website: Next.js)
+├── packages/ (Shared libraries)
+├── configs/ (Centralized configuration files)
+│   ├── .env
+│   ├── .eslintrc.cjs
+│   └── tsconfig.json
+```
+
+## Application Structure
+Each app follows this directory structure:
+```
+src/
+├── components/
+│   ├── shared/      # Reusable components
+│   └── [feature]/   # Feature-specific components
+├── apis/
+│   ├── queries/     # Read operations
+│   └── requests/    # Write operations
+├── types/
+│   ├── entities/    # Data models
+│   └── requests/    # API request types
+└── utils/           # Helper functions
+```
+
+## Directory-Specific Instructions
+- **Admin Application**: Modify features in `@mejjos/apps/admin`
+- **Public Website**: Update content or functionality in `@mejjos/apps/web`
+- **Shared Libraries**: Extend shared functionality within `@mejjos/packages`
+
+## Tech Stack Overview
+- **Admin Interface**: Vite + React
+  - Storybook for component development
+  - @dnd-kit for drag-and-drop
+  - Lexical Editor for rich text editing
+- **Public Website**: Next.js 14
+  - Auth0 for authentication
+  - Google Maps API for geolocation
+  - Framer Motion for animations
+
+## Coding Standards
+
+### 1. Component Development
+- Use functional components with TypeScript
+- Follow single responsibility principle
+- Place shared components in `./apps/{Module Name}/src/components/shared`
+
+### 2. Form Implementation
+```typescript
+// Form Component Structure
+├── Component File
+│   ├── Form Schema (yup)
+│   └── Form State Management
+├── types/requests/<module-name>.requests.ts
+├── apis/requests/<module-name>.requests.ts
+└── apis/queries/<module-name>.queries.ts
+```
+
+### 3. API Integration
+- Declare request schemas in `./types/requests/<module-name>.requests.ts`
+- Define API functions in `./apis/requests/<module-name>.requests.ts`
+- Create query hooks in `./apis/queries/<module-name>.queries.ts`
+
+### 4. Styling Guidelines
+- Use TailwindCSS for styling
+- Utilize `cn()` function from `./src/utils/helpers.ts` for class merging
+- Avoid inline styles
+- Use Mantine's Button component (default: small & contained)
+
+### 5. Best Practices
+- Never destructure react-query hooks
+- Avoid complex logic in component return statements
+- Don't declare arrays directly in components
+- Never include form objects in useEffect dependencies
+- Define entity interfaces in `./types/entities/<module-name>.requests.ts`
+
+### 6. Form Components
+Use controlled components from shared library:
+```typescript
+{
+  Autocomplete: 'ControlledAutocomplete',
+  Checkbox: 'ControlledCheckbox',
+  ColorInput: 'ControlledColorInput',
+  Select: 'ControlledSelect',
+  TextInput: 'ControlledTextInput',
+  Textarea: 'ControlledTextarea'
+  // ... other form components
+}
+```
+
+### 7. State Management
+- Server State: TanStack Query
+- Client State: Zustand
+- Forms: react-hook-form with yup validation
+
+## Examples
+
+### Good Component Structure
+```typescript
+// Good Example
+import { useForm } from 'react-hook-form';
+import { Button } from '@mantine/core';
+import { cn } from '@/utils/helpers';
+
+const MyComponent = () => {
+  const form = useForm({
+    // form configuration
+  });
+  
+  return (
+    <div className={cn('flex flex-col gap-4', 'p-4')}>
+      <Button size="sm">Submit</Button>
+    </div>
+  );
+};
+```
+
+### Bad Practices to Avoid
+```typescript
+// Bad Example
+const BadComponent = () => {
+  // ❌ Don't destructure react-query
+  const { data } = useQuery(...);
+  
+  // ❌ Don't use inline styles
+  return <div style={{ padding: '1rem' }}>...</div>;
+  
+  // ❌ Don't declare arrays in component
+  const items = ['item1', 'item2'];
+};
+```

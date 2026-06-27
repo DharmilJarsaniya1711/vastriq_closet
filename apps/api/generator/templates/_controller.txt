@@ -1,0 +1,84 @@
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UsePipes } from '@nestjs/common';
+import { <% modelName %>Service } from './<% modelTransformedName %>.service';
+import {
+  Create<% modelName %>Dto,
+  Delete<% modelName %>Dto,
+  GetSingle<% modelName %>Dto,
+  List<% modelName %>Dto,
+  Update<% modelName %>Dto,
+  Update<% modelName %>FindByIdDto,
+  create<% modelName %>Schema,
+  list<% modelName %>Schema,
+  getSingle<% modelName %>Schema,
+  update<% modelName %>FindByIdSchema,
+  update<% modelName %>Schema,
+  delete<% modelName %>Schema,
+} from './<% modelTransformedName %>.dto';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { UtilService } from '../shared/util/util.service';
+import { JoiValidationPipe } from '../joi-validation-pipe/joi-validation-pipe.interceptor';
+
+@ApiTags('<% modelName %>')
+@Controller('<% modelTransformedName %>')
+export class <% modelName %>Controller {
+  constructor(private readonly <% modelTransformedCmlName %>Service: <% modelName %>Service) {}
+
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Create a <% modelName %>',
+  })
+  @Post()
+  @UsePipes(new JoiValidationPipe(create<% modelName %>Schema, 'body'))
+  async create(@Body() create<% modelName %>Dto: Create<% modelName %>Dto) {
+    const <% modelTransformedCmlName %> = await this.<% modelTransformedCmlName %>Service.create(create<% modelName %>Dto);
+    return UtilService.buildResponse({ <% modelTransformedCmlName %> });
+  }
+
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'List all <% modelName %>(s)',
+  })
+  @Get()
+  @UsePipes(new JoiValidationPipe(list<% modelName %>Schema, 'query'))
+  async findAll(@Query() list<% modelName %>Dto: List<% modelName %>Dto) {
+    const resp = await this.<% modelTransformedCmlName %>Service.findAll(list<% modelName %>Dto);
+    return UtilService.buildResponse(resp);
+  }
+
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Get a single <% modelName %>',
+  })
+  @Get(':id')
+  @UsePipes(new JoiValidationPipe(getSingle<% modelName %>Schema, 'param'))
+  async findOne(@Param() getSingle<% modelName %>Dto: GetSingle<% modelName %>Dto) {
+    const <% modelTransformedCmlName %> = await this.<% modelTransformedCmlName %>Service.findOne(getSingle<% modelName %>Dto.id);
+    return UtilService.buildResponse({ <% modelTransformedCmlName %> });
+  }
+
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Update a single <% modelName %>',
+  })
+  @Patch(':id')
+  @UsePipes(new JoiValidationPipe(update<% modelName %>FindByIdSchema, 'param'))
+  @UsePipes(new JoiValidationPipe(update<% modelName %>Schema, 'body'))
+  async update(
+    @Param() update<% modelName %>FindByIdDto: Update<% modelName %>FindByIdDto,
+    @Body() update<% modelName %>Dto: Update<% modelName %>Dto,
+  ) {
+    const <% modelTransformedCmlName %> = await this.<% modelTransformedCmlName %>Service.update(update<% modelName %>FindByIdDto.id, update<% modelName %>Dto);
+    return UtilService.buildResponse({ <% modelTransformedCmlName %> });
+  }
+
+  @ApiBearerAuth()
+  @ApiOperation({
+    summary: 'Delete a single <% modelName %>',
+  })
+  @Delete(':id')
+  @UsePipes(new JoiValidationPipe(delete<% modelName %>Schema, 'param'))
+  async remove(@Param() delete<% modelName %>Dto: Delete<% modelName %>Dto) {
+    const <% modelTransformedCmlName %> = await this.<% modelTransformedCmlName %>Service.remove(delete<% modelName %>Dto.id);
+    return UtilService.buildResponse({ <% modelTransformedCmlName %> });
+  }
+}

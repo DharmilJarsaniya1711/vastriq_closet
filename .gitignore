@@ -1,0 +1,17 @@
+node_modules
+.turbo
+
+# build output
+dist
+.next
+storybook-static
+*.tsbuildinfo
+
+# logs / runtime
+dump.rdb
+*.log
+
+.DS_Store
+
+.env*
+!.env.example

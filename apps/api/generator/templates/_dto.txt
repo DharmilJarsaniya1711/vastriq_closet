@@ -1,0 +1,58 @@
+import { <% prismaImports %> } from '@prisma/client';
+import * as JoiImport from 'joi';
+import JoiDate from '@joi/date';
+import { JoiSchema } from 'nestjs-joi';
+import { ApiProperty } from '@nestjs/swagger';
+import { ListPropsDto, PaginationSchema } from '../shared/dto/listProps.dto';
+const Joi = JoiImport.extend(JoiDate);
+
+<% Subclasses %>
+
+export const create<% modelName %>Schema = Joi.object({
+    <% CreateClassSchema %>
+})
+
+export class Create<% modelName %>Dto {
+    <% CreateClassBody %>
+}
+
+export const list<% modelName %>Schema = PaginationSchema.append({
+    <% listSchema %>
+});
+
+export class List<% modelName %>Dto extends ListPropsDto {
+    <% ListClassBody %>
+}
+
+export const getSingle<% modelName %>Schema = Joi.object({
+  id: JoiImport.string().trim().max(100).required()
+})
+
+export class GetSingle<% modelName %>Dto {
+    <% GetSingleClassBody %>
+}
+
+export const update<% modelName %>FindByIdSchema = Joi.object({
+  id: JoiImport.string().trim().max(100).required()
+})
+
+export class Update<% modelName %>FindByIdDto {
+    <% UpdateFindByIdClassBody %>
+}
+
+export const update<% modelName %>Schema = Joi.object({
+    <% UpdateClassSchema %>
+})
+
+export class Update<% modelName %>Dto {
+    <% UpdateClassBody %>
+}
+
+export const delete<% modelName %>Schema = Joi.object({
+  id: JoiImport.string().trim().max(100).required()
+})
+
+export class Delete<% modelName %>Dto {
+    <% DeleteClassBody %>
+}
+
