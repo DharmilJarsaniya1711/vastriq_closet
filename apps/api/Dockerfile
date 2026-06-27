@@ -25,3 +25,7 @@ RUN pnpm --filter api install
 
 RUN pnpm --filter api prisma generate
 RUN pnpm --filter api build
+
+# Sync the Mongo schema, then start the server. Without a CMD the base image
+# falls back to a bare `node` REPL that binds no port and the deploy fails.
+CMD ["sh", "-c", "pnpm --filter api prisma db push --skip-generate && pnpm --filter api start:prod"]
