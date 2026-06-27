@@ -43,8 +43,10 @@ async function bootstrap() {
 
   app.enableCors(corsOptions);
 
-  await app.listen(appConfigService.app.port).then(() => {
-    loggerService.debug(`\n\n\nAPP started on http://localhost:${appConfigService.app.port}/api`);
+  // Hosts like Render/Railway inject the port via $PORT; fall back to APP_PORT locally.
+  const port = process.env.PORT || appConfigService.app.port;
+  await app.listen(port, '0.0.0.0').then(() => {
+    loggerService.debug(`\n\n\nAPP started on port ${port}/api`);
   });
 }
 bootstrap();
