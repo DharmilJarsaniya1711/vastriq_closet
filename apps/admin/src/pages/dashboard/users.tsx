@@ -16,7 +16,7 @@ const UsersPage = () => {
     <div className="space-y-6">
       <div>
         <p className="vc-wordmark text-xs text-gold-700">People</p>
-        <h1 className="mt-2 font-serif text-4xl text-primary-900">Users</h1>
+        <h1 className="mt-2 font-serif text-3xl text-primary-900 sm:text-4xl">Users</h1>
         <p className="mt-1 text-sm text-gray-500">
           {data ? `${data.total} total` : 'Loading'} · search and inspect every account.
         </p>
@@ -46,58 +46,60 @@ const UsersPage = () => {
             <Loader color="primary" />
           </div>
         ) : (
-          <Table verticalSpacing="sm" highlightOnHover>
-            <Table.Thead>
-              <Table.Tr>
-                <Table.Th>Name</Table.Th>
-                <Table.Th>Contact</Table.Th>
-                <Table.Th>Type</Table.Th>
-                <Table.Th>Status</Table.Th>
-                <Table.Th>Joined</Table.Th>
-              </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>
-              {data?.items.map((u) => (
-                <Table.Tr key={u.id}>
-                  <Table.Td>
-                    <p className="font-medium text-primary-900">
-                      {[u.firstName, u.lastName].filter(Boolean).join(' ') || '—'}
-                    </p>
-                  </Table.Td>
-                  <Table.Td>
-                    <p className="text-xs text-gray-500">{u.email ?? '—'}</p>
-                    <p className="text-xs text-gray-400">{u.phone ?? '—'}</p>
-                  </Table.Td>
-                  <Table.Td>
-                    <Badge color={u.type === 'ADMIN' ? 'gold' : 'primary'} variant="light">
-                      {u.type}
-                    </Badge>
-                  </Table.Td>
-                  <Table.Td>
-                    {u.banned ? (
-                      <Badge color="danger">Banned</Badge>
-                    ) : (
-                      <Badge color="success" variant="light">
-                        Active
-                      </Badge>
-                    )}
-                  </Table.Td>
-                  <Table.Td>
-                    <span className="text-xs text-gray-400">
-                      {new Date(u.createdAt).toLocaleDateString('en-IN')}
-                    </span>
-                  </Table.Td>
-                </Table.Tr>
-              ))}
-              {data?.items.length === 0 && (
+          <Table.ScrollContainer minWidth={640}>
+            <Table verticalSpacing="sm" highlightOnHover>
+              <Table.Thead>
                 <Table.Tr>
-                  <Table.Td colSpan={5} className="text-center text-sm text-gray-400">
-                    No users match those filters.
-                  </Table.Td>
+                  <Table.Th>Name</Table.Th>
+                  <Table.Th>Contact</Table.Th>
+                  <Table.Th>Type</Table.Th>
+                  <Table.Th>Status</Table.Th>
+                  <Table.Th>Joined</Table.Th>
                 </Table.Tr>
-              )}
-            </Table.Tbody>
-          </Table>
+              </Table.Thead>
+              <Table.Tbody>
+                {data?.items.map((u) => (
+                  <Table.Tr key={u.id}>
+                    <Table.Td>
+                      <p className="font-medium text-primary-900">
+                        {[u.firstName, u.lastName].filter(Boolean).join(' ') || '—'}
+                      </p>
+                    </Table.Td>
+                    <Table.Td>
+                      <p className="text-xs text-gray-500">{u.email ?? '—'}</p>
+                      <p className="text-xs text-gray-400">{u.phone ?? '—'}</p>
+                    </Table.Td>
+                    <Table.Td>
+                      <Badge color={u.type === 'ADMIN' ? 'gold' : 'primary'} variant="light">
+                        {u.type}
+                      </Badge>
+                    </Table.Td>
+                    <Table.Td>
+                      {u.banned ? (
+                        <Badge color="danger">Banned</Badge>
+                      ) : (
+                        <Badge color="success" variant="light">
+                          Active
+                        </Badge>
+                      )}
+                    </Table.Td>
+                    <Table.Td>
+                      <span className="text-xs text-gray-400">
+                        {new Date(u.createdAt).toLocaleDateString('en-IN')}
+                      </span>
+                    </Table.Td>
+                  </Table.Tr>
+                ))}
+                {data?.items.length === 0 && (
+                  <Table.Tr>
+                    <Table.Td colSpan={5} className="text-center text-sm text-gray-400">
+                      No users match those filters.
+                    </Table.Td>
+                  </Table.Tr>
+                )}
+              </Table.Tbody>
+            </Table>
+          </Table.ScrollContainer>
         )}
       </div>
     </div>

@@ -31,12 +31,12 @@ const AboutPage = () => (
     />
 
     {/* Hero */}
-    <section className="container mx-auto max-w-4xl px-6 py-16 text-center md:py-24">
+    <section className="container mx-auto max-w-4xl px-4 py-12 text-center sm:px-6 sm:py-16 md:py-24">
       <p className="vc-wordmark text-xs text-gold-700">Our story</p>
-      <h1 className="mt-3 font-serif text-5xl text-primary-900 md:text-6xl">
+      <h1 className="mt-3 font-serif text-3xl text-primary-900 sm:text-5xl md:text-6xl">
         Ethnic wear, worn more than once.
       </h1>
-      <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-500">
+      <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-gray-500 sm:text-lg">
         VASTRIQ CLOSET began with a simple thought: the most beautiful outfits in India spend most
         of their lives in a wardrobe. We built a place where those pieces can be discovered, rented
         and loved again — connecting owners and renters, beautifully and on their own terms.
@@ -48,10 +48,10 @@ const AboutPage = () => (
     </div>
 
     {/* Values */}
-    <section className="container mx-auto px-6 py-16">
-      <div className="mb-12 text-center">
+    <section className="container mx-auto px-4 py-12 sm:px-6 sm:py-16">
+      <div className="mb-10 text-center sm:mb-12">
         <p className="vc-wordmark text-xs text-gold-700">What we believe</p>
-        <h2 className="mt-2 font-serif text-4xl text-primary-900">How VASTRIQ works</h2>
+        <h2 className="mt-2 font-serif text-3xl text-primary-900 sm:text-4xl">How VASTRIQ works</h2>
       </div>
       <div className="grid gap-6 md:grid-cols-2">
         {values.map((v) => (
@@ -66,10 +66,10 @@ const AboutPage = () => (
     </section>
 
     {/* CTA */}
-    <section className="bg-primary-900 py-16 text-cream-50">
-      <div className="container mx-auto grid items-center gap-8 px-6 text-center md:grid-cols-2 md:text-left">
+    <section className="bg-primary-900 py-12 text-cream-50 sm:py-16">
+      <div className="container mx-auto grid items-center gap-8 px-4 text-center sm:px-6 md:grid-cols-2 md:text-left">
         <div>
-          <h2 className="font-serif text-4xl">Have a question or an idea?</h2>
+          <h2 className="font-serif text-3xl sm:text-4xl">Have a question or an idea?</h2>
           <p className="mt-3 max-w-md text-cream-100/80">
             We&apos;d love to hear from you — whether you&apos;re an owner, a renter, or just
             curious.

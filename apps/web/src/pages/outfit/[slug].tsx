@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Alert, Badge, Button, Loader, Rating, Textarea, TextInput } from '@mantine/core';
 import { DatePickerInput } from '@mantine/dates';
+import { useMediaQuery } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import { getCookie } from 'cookies-next';
 import Link from 'next/link';
@@ -21,6 +22,7 @@ const displayName = (a?: { firstName?: string | null; lastName?: string | null }
 const OutfitDetail = () => {
   const router = useRouter();
   const slug = router.query.slug as string;
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const { data: live, isLoading, isError } = useOutfit(slug);
   const { data: reviews } = useOutfitReviews(slug);
 
@@ -151,8 +153,8 @@ const OutfitDetail = () => {
   return (
     <StoreShell>
       <NextSeo title={`${outfit.title} — VASTRIQ CLOSET`} description={outfit.description} />
-      <section className="container mx-auto px-6 py-12">
-        <div className="grid gap-12 lg:grid-cols-2">
+      <section className="container mx-auto px-4 py-8 sm:px-6 sm:py-12">
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
           {/* Gallery */}
           <div className="space-y-4">
             {gallery.length ? (
@@ -164,7 +166,7 @@ const OutfitDetail = () => {
                   className="w-full rounded-lg border border-gold-200 object-cover"
                 />
                 {gallery.length > 1 && (
-                  <div className="grid grid-cols-4 gap-3">
+                  <div className="grid grid-cols-4 gap-2 sm:gap-3">
                     {gallery.slice(1, 5).map((url) => (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
@@ -191,7 +193,9 @@ const OutfitDetail = () => {
             <p className="vc-wordmark text-xs text-gold-700">
               {CATEGORY_LABELS[outfit.category] ?? outfit.category}
             </p>
-            <h1 className="mt-2 font-serif text-4xl text-primary-900">{outfit.title}</h1>
+            <h1 className="mt-2 font-serif text-3xl text-primary-900 sm:text-4xl">
+              {outfit.title}
+            </h1>
 
             {outfit.totalReviews > 0 && (
               <div className="mt-2 flex items-center gap-2">
@@ -246,7 +250,7 @@ const OutfitDetail = () => {
                 value={dateRange}
                 onChange={setDateRange}
                 minDate={new Date()}
-                numberOfColumns={2}
+                numberOfColumns={isMobile ? 1 : 2}
                 clearable
                 valueFormat="DD MMM YYYY"
               />

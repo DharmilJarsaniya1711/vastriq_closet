@@ -10,7 +10,7 @@ import {
   Table,
   Textarea,
 } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 
 import { useAdminOutfits, useModerateOutfit } from '../../apis/queries/admin.queries';
@@ -43,6 +43,7 @@ const OutfitsPage = () => {
   const [reason, setReason] = useState('');
 
   const [reviewOutfit, setReviewOutfit] = useState<AdminOutfit | null>(null);
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const onApprove = (id: string) =>
     approve.mutate(id, {
@@ -76,13 +77,15 @@ const OutfitsPage = () => {
     <div className="space-y-6">
       <div>
         <p className="vc-wordmark text-xs text-gold-700">Inventory</p>
-        <h1 className="mt-2 font-serif text-4xl text-primary-900">Listings moderation</h1>
+        <h1 className="mt-2 font-serif text-3xl text-primary-900 sm:text-4xl">
+          Listings moderation
+        </h1>
         <p className="mt-1 text-sm text-gray-500">
           Approve or reject listings before they go live.
         </p>
       </div>
 
-      <div className="max-w-xs">
+      <div className="w-full sm:max-w-xs">
         <Select
           label="Status"
           placeholder="All"
@@ -99,89 +102,91 @@ const OutfitsPage = () => {
             <Loader color="primary" />
           </div>
         ) : (
-          <Table verticalSpacing="sm" highlightOnHover>
-            <Table.Thead>
-              <Table.Tr>
-                <Table.Th>Outfit</Table.Th>
-                <Table.Th>Owner</Table.Th>
-                <Table.Th>Category</Table.Th>
-                <Table.Th>Rent / day</Table.Th>
-                <Table.Th>Status</Table.Th>
-                <Table.Th>Actions</Table.Th>
-              </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>
-              {data?.items.map((o) => (
-                <Table.Tr key={o.id}>
-                  <Table.Td>
-                    <div className="flex items-center gap-3">
-                      {o.imageUrls?.[0] && (
-                        <img
-                          src={o.imageUrls[0]}
-                          alt={o.title}
-                          className="h-12 w-10 rounded border border-gold-200 object-cover"
-                        />
-                      )}
-                      <div>
-                        <p className="font-medium text-primary-900">{o.title}</p>
-                        <p className="text-xs text-gray-400">{o.slug}</p>
-                      </div>
-                    </div>
-                  </Table.Td>
-                  <Table.Td>
-                    <p className="text-sm text-gray-500">
-                      {o.owner?.ownerProfile?.brandName ??
-                        [o.owner?.firstName, o.owner?.lastName].filter(Boolean).join(' ') ??
-                        '—'}
-                    </p>
-                  </Table.Td>
-                  <Table.Td>{o.category?.name ?? '—'}</Table.Td>
-                  <Table.Td>₹ {o.rentPerDay?.toLocaleString('en-IN')}</Table.Td>
-                  <Table.Td>
-                    <Badge color={statusColor[o.status] ?? 'gray'} variant="light">
-                      {o.status}
-                    </Badge>
-                    {o.status === 'REJECTED' && o.rejectionReason && (
-                      <p className="mt-1 max-w-[160px] text-[10px] text-red-500">
-                        {o.rejectionReason}
-                      </p>
-                    )}
-                  </Table.Td>
-                  <Table.Td>
-                    <Group gap="xs">
-                      <Button size="xs" variant="light" onClick={() => setReviewOutfit(o)}>
-                        Review
-                      </Button>
-                      <Button
-                        size="xs"
-                        color="success"
-                        variant="light"
-                        disabled={o.status === 'ACTIVE'}
-                        loading={approve.isPending && approve.variables === o.id}
-                        onClick={() => onApprove(o.id)}>
-                        Approve
-                      </Button>
-                      <Button
-                        size="xs"
-                        color="danger"
-                        variant="light"
-                        disabled={o.status === 'REJECTED'}
-                        onClick={() => openReject(o.id)}>
-                        Reject
-                      </Button>
-                    </Group>
-                  </Table.Td>
-                </Table.Tr>
-              ))}
-              {data?.items.length === 0 && (
+          <Table.ScrollContainer minWidth={760}>
+            <Table verticalSpacing="sm" highlightOnHover>
+              <Table.Thead>
                 <Table.Tr>
-                  <Table.Td colSpan={6} className="text-center text-sm text-gray-400">
-                    No listings match the filter.
-                  </Table.Td>
+                  <Table.Th>Outfit</Table.Th>
+                  <Table.Th>Owner</Table.Th>
+                  <Table.Th>Category</Table.Th>
+                  <Table.Th>Rent / day</Table.Th>
+                  <Table.Th>Status</Table.Th>
+                  <Table.Th>Actions</Table.Th>
                 </Table.Tr>
-              )}
-            </Table.Tbody>
-          </Table>
+              </Table.Thead>
+              <Table.Tbody>
+                {data?.items.map((o) => (
+                  <Table.Tr key={o.id}>
+                    <Table.Td>
+                      <div className="flex items-center gap-3">
+                        {o.imageUrls?.[0] && (
+                          <img
+                            src={o.imageUrls[0]}
+                            alt={o.title}
+                            className="h-12 w-10 rounded border border-gold-200 object-cover"
+                          />
+                        )}
+                        <div>
+                          <p className="font-medium text-primary-900">{o.title}</p>
+                          <p className="text-xs text-gray-400">{o.slug}</p>
+                        </div>
+                      </div>
+                    </Table.Td>
+                    <Table.Td>
+                      <p className="text-sm text-gray-500">
+                        {o.owner?.ownerProfile?.brandName ??
+                          [o.owner?.firstName, o.owner?.lastName].filter(Boolean).join(' ') ??
+                          '—'}
+                      </p>
+                    </Table.Td>
+                    <Table.Td>{o.category?.name ?? '—'}</Table.Td>
+                    <Table.Td>₹ {o.rentPerDay?.toLocaleString('en-IN')}</Table.Td>
+                    <Table.Td>
+                      <Badge color={statusColor[o.status] ?? 'gray'} variant="light">
+                        {o.status}
+                      </Badge>
+                      {o.status === 'REJECTED' && o.rejectionReason && (
+                        <p className="mt-1 max-w-[160px] text-[10px] text-red-500">
+                          {o.rejectionReason}
+                        </p>
+                      )}
+                    </Table.Td>
+                    <Table.Td>
+                      <Group gap="xs">
+                        <Button size="xs" variant="light" onClick={() => setReviewOutfit(o)}>
+                          Review
+                        </Button>
+                        <Button
+                          size="xs"
+                          color="success"
+                          variant="light"
+                          disabled={o.status === 'ACTIVE'}
+                          loading={approve.isPending && approve.variables === o.id}
+                          onClick={() => onApprove(o.id)}>
+                          Approve
+                        </Button>
+                        <Button
+                          size="xs"
+                          color="danger"
+                          variant="light"
+                          disabled={o.status === 'REJECTED'}
+                          onClick={() => openReject(o.id)}>
+                          Reject
+                        </Button>
+                      </Group>
+                    </Table.Td>
+                  </Table.Tr>
+                ))}
+                {data?.items.length === 0 && (
+                  <Table.Tr>
+                    <Table.Td colSpan={6} className="text-center text-sm text-gray-400">
+                      No listings match the filter.
+                    </Table.Td>
+                  </Table.Tr>
+                )}
+              </Table.Tbody>
+            </Table>
+          </Table.ScrollContainer>
         )}
       </div>
 
@@ -212,7 +217,7 @@ const OutfitsPage = () => {
         opened={!!reviewOutfit}
         onClose={() => setReviewOutfit(null)}
         position="right"
-        size="lg"
+        size={isMobile ? '100%' : 'lg'}
         title="Review listing">
         {reviewOutfit && (
           <div className="space-y-4">

@@ -83,7 +83,7 @@ const OutfitImage = ({
           Vastriq
         </p>
         <p
-          className="mt-2 font-serif text-5xl"
+          className="mt-2 font-serif text-4xl sm:text-5xl"
           style={{ color: palette.ink, fontFamily: '"Cormorant Garamond", Georgia, serif' }}>
           {initials || 'VC'}
         </p>

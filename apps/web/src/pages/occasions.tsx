@@ -11,9 +11,9 @@ const OccasionsPage = () => {
   return (
     <StoreShell>
       <NextSeo title="Shop by occasion — VASTRIQ CLOSET" />
-      <section className="container mx-auto px-6 py-12">
+      <section className="container mx-auto px-4 py-8 sm:px-6 sm:py-12">
         <p className="vc-wordmark text-xs text-gold-700">Browse</p>
-        <h1 className="mt-2 font-serif text-4xl text-primary-900">Shop by occasion</h1>
+        <h1 className="mt-2 font-serif text-3xl text-primary-900 sm:text-4xl">Shop by occasion</h1>
         <p className="mt-1 text-sm text-gray-500">Find the perfect outfit for every celebration.</p>
 
         {isLoading ? (
@@ -26,8 +26,8 @@ const OccasionsPage = () => {
               <Link
                 key={o.slug}
                 href={`/outfits?occasion=${o.slug}`}
-                className="rounded-lg border border-gold-200 bg-cream-25 p-8 text-center transition hover:border-gold-500 hover:shadow-sm">
-                <p className="font-serif text-xl text-primary-900">{o.name}</p>
+                className="rounded-lg border border-gold-200 bg-cream-25 p-5 text-center transition hover:border-gold-500 hover:shadow-sm sm:p-8">
+                <p className="font-serif text-lg text-primary-900 sm:text-xl">{o.name}</p>
               </Link>
             ))}
           </div>

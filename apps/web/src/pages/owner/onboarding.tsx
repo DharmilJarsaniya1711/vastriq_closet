@@ -55,14 +55,14 @@ const OwnerOnboarding = () => (
     <NextSeo title="List with VASTRIQ CLOSET — Earn from your closet" />
 
     {/* Hero */}
-    <section className="container mx-auto px-6 py-16 md:py-24">
-      <div className="grid gap-12 md:grid-cols-2 md:items-center">
+    <section className="container mx-auto px-4 py-12 sm:px-6 sm:py-16 md:py-24">
+      <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-12">
         <div>
           <p className="vc-wordmark text-xs text-gold-700">Become an owner</p>
-          <h1 className="mt-3 font-serif text-5xl text-primary-900 md:text-6xl">
+          <h1 className="mt-3 font-serif text-3xl text-primary-900 sm:text-5xl md:text-6xl">
             Earn from the outfits already in your closet.
           </h1>
-          <p className="mt-6 max-w-lg text-lg leading-relaxed text-gray-500">
+          <p className="mt-6 max-w-lg text-base leading-relaxed text-gray-500 sm:text-lg">
             Vastriq Closet partners with brides, designers, and brands to rent out their bridal
             &amp; festive collections — beautifully, and on terms you control.
           </p>
@@ -105,10 +105,10 @@ const OwnerOnboarding = () => (
     </div>
 
     {/* Steps */}
-    <section id="how" className="container mx-auto px-6 py-16">
-      <div className="mb-12 text-center">
+    <section id="how" className="container mx-auto px-4 py-12 sm:px-6 sm:py-16">
+      <div className="mb-10 text-center sm:mb-12">
         <p className="vc-wordmark text-xs text-gold-700">Get started</p>
-        <h2 className="mt-2 font-serif text-4xl text-primary-900">
+        <h2 className="mt-2 font-serif text-3xl text-primary-900 sm:text-4xl">
           Four steps to your first booking
         </h2>
       </div>
@@ -124,9 +124,9 @@ const OwnerOnboarding = () => (
     </section>
 
     {/* Final CTA */}
-    <section className="bg-primary-900 py-16 text-cream-50">
-      <div className="container mx-auto px-6 text-center">
-        <h2 className="font-serif text-4xl">Ready to list?</h2>
+    <section className="bg-primary-900 py-12 text-cream-50 sm:py-16">
+      <div className="container mx-auto px-4 text-center sm:px-6">
+        <h2 className="font-serif text-3xl sm:text-4xl">Ready to list?</h2>
         <p className="mt-3 text-cream-100/80">
           It takes less than 5 minutes to add your first outfit.
         </p>

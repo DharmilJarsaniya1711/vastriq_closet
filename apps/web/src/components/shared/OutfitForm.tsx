@@ -120,7 +120,7 @@ const OutfitForm = ({
 
   return (
     <form
-      className="mt-10 space-y-6 rounded-lg border border-gold-200 bg-cream-25 p-8 shadow-sm"
+      className="mt-8 space-y-6 rounded-lg border border-gold-200 bg-cream-25 p-4 shadow-sm sm:mt-10 sm:p-6 md:p-8"
       onSubmit={handleSubmit}>
       {error && (
         <Alert color="red" variant="light">

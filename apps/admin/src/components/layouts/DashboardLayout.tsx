@@ -68,7 +68,7 @@ const DashboardLayout = () => {
       header={{ height: 64 }}
       transitionDuration={300}
       navbar={{
-        width: desktopOpened ? 260 : 80,
+        width: { base: 260, sm: desktopOpened ? 260 : 80 },
         breakpoint: 'sm',
         collapsed: { mobile: !mobileOpened },
       }}
@@ -136,9 +136,12 @@ const DashboardLayout = () => {
                 location.pathname === n.to ||
                 (n.to !== '/dashboard' && location.pathname.startsWith(n.to))
               }
-              label={desktopOpened ? n.label : ''}
+              label={desktopOpened || mobileOpened ? n.label : ''}
               leftSection={<Icon icon={n.icon} width={20} />}
-              onClick={() => navigate(n.to)}
+              onClick={() => {
+                navigate(n.to);
+                mobileSidebarHandler.close();
+              }}
               color="primary"
               variant="filled"
               styles={{ root: { borderRadius: 8 } }}

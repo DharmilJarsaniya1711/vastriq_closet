@@ -47,12 +47,13 @@ const CatalogTab = ({ type, activeKey, extraLabel, extraKey }: TabConfig) => {
 
   return (
     <div className="space-y-4 pt-4">
-      <Group align="flex-end" gap="sm">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
         <TextInput
           label="Name"
           placeholder={`New ${type.slice(0, -1)}`}
           value={name}
           onChange={(e) => setName(e.currentTarget.value)}
+          className="flex-1"
         />
         {extraKey && (
           <TextInput
@@ -60,12 +61,17 @@ const CatalogTab = ({ type, activeKey, extraLabel, extraKey }: TabConfig) => {
             placeholder={extraKey === 'hex' ? '#0F4C3A' : 'State'}
             value={extra}
             onChange={(e) => setExtra(e.currentTarget.value)}
+            className="flex-1"
           />
         )}
-        <Button color="primary" loading={create.isPending} onClick={onCreate}>
+        <Button
+          color="primary"
+          loading={create.isPending}
+          onClick={onCreate}
+          className="w-full sm:w-auto">
           Add
         </Button>
-      </Group>
+      </div>
 
       <div className="rounded-lg border border-gold-200 bg-cream-25 p-2 shadow-sm">
         {isLoading ? (
@@ -73,50 +79,52 @@ const CatalogTab = ({ type, activeKey, extraLabel, extraKey }: TabConfig) => {
             <Loader color="primary" />
           </div>
         ) : (
-          <Table verticalSpacing="sm">
-            <Table.Thead>
-              <Table.Tr>
-                <Table.Th>Name</Table.Th>
-                <Table.Th>Slug</Table.Th>
-                {extraKey && <Table.Th>{extraLabel}</Table.Th>}
-                <Table.Th>Enabled</Table.Th>
-              </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>
-              {items?.map((item) => (
-                <Table.Tr key={item.id}>
-                  <Table.Td className="font-medium text-primary-900">{item.name}</Table.Td>
-                  <Table.Td className="text-xs text-gray-400">{item.slug}</Table.Td>
-                  {extraKey && (
-                    <Table.Td>
-                      {extraKey === 'hex' && item.hex ? (
-                        <Group gap="xs">
-                          <ColorSwatch color={item.hex} size={16} />
-                          <span className="text-xs text-gray-500">{item.hex}</span>
-                        </Group>
-                      ) : (
-                        <span className="text-sm text-gray-500">{item.state ?? '—'}</span>
-                      )}
-                    </Table.Td>
-                  )}
-                  <Table.Td>
-                    <Switch
-                      checked={(item[activeKey] ?? true) as boolean}
-                      onChange={() => toggle(item)}
-                      color="primary"
-                    />
-                  </Table.Td>
-                </Table.Tr>
-              ))}
-              {items?.length === 0 && (
+          <Table.ScrollContainer minWidth={480}>
+            <Table verticalSpacing="sm">
+              <Table.Thead>
                 <Table.Tr>
-                  <Table.Td colSpan={4} className="text-center text-sm text-gray-400">
-                    Nothing here yet.
-                  </Table.Td>
+                  <Table.Th>Name</Table.Th>
+                  <Table.Th>Slug</Table.Th>
+                  {extraKey && <Table.Th>{extraLabel}</Table.Th>}
+                  <Table.Th>Enabled</Table.Th>
                 </Table.Tr>
-              )}
-            </Table.Tbody>
-          </Table>
+              </Table.Thead>
+              <Table.Tbody>
+                {items?.map((item) => (
+                  <Table.Tr key={item.id}>
+                    <Table.Td className="font-medium text-primary-900">{item.name}</Table.Td>
+                    <Table.Td className="text-xs text-gray-400">{item.slug}</Table.Td>
+                    {extraKey && (
+                      <Table.Td>
+                        {extraKey === 'hex' && item.hex ? (
+                          <Group gap="xs">
+                            <ColorSwatch color={item.hex} size={16} />
+                            <span className="text-xs text-gray-500">{item.hex}</span>
+                          </Group>
+                        ) : (
+                          <span className="text-sm text-gray-500">{item.state ?? '—'}</span>
+                        )}
+                      </Table.Td>
+                    )}
+                    <Table.Td>
+                      <Switch
+                        checked={(item[activeKey] ?? true) as boolean}
+                        onChange={() => toggle(item)}
+                        color="primary"
+                      />
+                    </Table.Td>
+                  </Table.Tr>
+                ))}
+                {items?.length === 0 && (
+                  <Table.Tr>
+                    <Table.Td colSpan={4} className="text-center text-sm text-gray-400">
+                      Nothing here yet.
+                    </Table.Td>
+                  </Table.Tr>
+                )}
+              </Table.Tbody>
+            </Table>
+          </Table.ScrollContainer>
         )}
       </div>
     </div>
@@ -127,7 +135,7 @@ const CatalogPage = () => (
   <div className="space-y-6">
     <div>
       <p className="vc-wordmark text-xs text-gold-700">Master data</p>
-      <h1 className="mt-2 font-serif text-4xl text-primary-900">Catalog master</h1>
+      <h1 className="mt-2 font-serif text-3xl text-primary-900 sm:text-4xl">Catalog master</h1>
       <p className="mt-1 text-sm text-gray-500">
         Add or disable categories, colors, occasions and cities. Disabling hides an item from new
         listings &amp; filters; existing listings are untouched.
