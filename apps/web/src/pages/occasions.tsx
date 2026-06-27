@@ -26,8 +26,7 @@ const OccasionsPage = () => {
               <Link
                 key={o.slug}
                 href={`/outfits?occasion=${o.slug}`}
-                className="rounded-lg border border-gold-200 bg-cream-25 p-8 text-center transition hover:border-gold-500 hover:shadow-sm"
-              >
+                className="rounded-lg border border-gold-200 bg-cream-25 p-8 text-center transition hover:border-gold-500 hover:shadow-sm">
                 <p className="font-serif text-xl text-primary-900">{o.name}</p>
               </Link>
             ))}

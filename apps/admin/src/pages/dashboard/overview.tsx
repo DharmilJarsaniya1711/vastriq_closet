@@ -23,7 +23,9 @@ const Overview = () => {
       <div>
         <p className="vc-wordmark text-xs text-gold-700">Dashboard</p>
         <h1 className="mt-2 font-serif text-4xl text-primary-900">Welcome back</h1>
-        <p className="mt-1 text-sm text-gray-500">A snapshot of how Vastriq Closet is doing today.</p>
+        <p className="mt-1 text-sm text-gray-500">
+          A snapshot of how Vastriq Closet is doing today.
+        </p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -42,7 +44,11 @@ const Overview = () => {
       />
 
       <div className="grid gap-4 md:grid-cols-2">
-        <BarList title="Top categories" subtitle="By active listing count" items={data?.topCategories ?? []} />
+        <BarList
+          title="Top categories"
+          subtitle="By active listing count"
+          items={data?.topCategories ?? []}
+        />
       </div>
     </div>
   );

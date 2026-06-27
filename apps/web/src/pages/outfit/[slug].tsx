@@ -8,16 +8,12 @@ import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
 import { useOutfit } from '@/apis/queries/catalog.queries';
-import {
-  useCreateReview,
-  useFileReport,
-  useOutfitReviews,
-} from '@/apis/queries/social.queries';
+import { useCreateReview, useFileReport, useOutfitReviews } from '@/apis/queries/social.queries';
 import StoreShell from '@/components/layouts/StoreShell';
 import OutfitImage from '@/components/shared/OutfitImage';
 import WishlistButton from '@/components/shared/WishlistButton';
-import { CATEGORY_LABELS, SAMPLE_OUTFITS } from '@/utils/sampleOutfits';
 import { ACCESS_TOKEN } from '@/utils/constants';
+import { CATEGORY_LABELS, SAMPLE_OUTFITS } from '@/utils/sampleOutfits';
 
 const displayName = (a?: { firstName?: string | null; lastName?: string | null }) =>
   [a?.firstName, a?.lastName].filter(Boolean).join(' ') || 'Anonymous';
@@ -224,7 +220,9 @@ const OutfitDetail = () => {
                   <span className="ml-1 text-sm text-gray-400">/ day</span>
                 </p>
                 {outfit.mrp ? (
-                  <p className="text-xs text-gray-400">MRP ₹ {outfit.mrp.toLocaleString('en-IN')}</p>
+                  <p className="text-xs text-gray-400">
+                    MRP ₹ {outfit.mrp.toLocaleString('en-IN')}
+                  </p>
                 ) : null}
               </div>
               <p className="mt-1 text-xs text-gray-400">
@@ -260,7 +258,11 @@ const OutfitDetail = () => {
             {/* Estimate — owner-declared, arranged directly with the owner */}
             <div className="mt-8 space-y-2 rounded-lg border border-gold-200 bg-cream-50 p-5 text-sm">
               <div className="flex justify-between text-gray-500">
-                <span>{days ? `Est. rent (${days} day${days === 1 ? '' : 's'})` : 'Est. rent (pick dates)'}</span>
+                <span>
+                  {days
+                    ? `Est. rent (${days} day${days === 1 ? '' : 's'})`
+                    : 'Est. rent (pick dates)'}
+                </span>
                 <span>₹ {rentTotal.toLocaleString('en-IN')}</span>
               </div>
               <div className="flex justify-between text-gray-500">
@@ -285,8 +287,7 @@ const OutfitDetail = () => {
                     title: 'Coming soon',
                     message: 'Chat with owner is a feature we are building. Stay tuned!',
                   })
-                }
-              >
+                }>
                 Chat with owner
               </Button>
               <WishlistButton outfitId={outfitId} variant="full" />
@@ -304,8 +305,7 @@ const OutfitDetail = () => {
                 type="button"
                 onClick={reportListing}
                 disabled={reported}
-                className="text-xs text-gray-400 hover:text-red-500 disabled:opacity-50"
-              >
+                className="text-xs text-gray-400 hover:text-red-500 disabled:opacity-50">
                 {reported ? 'Reported' : 'Report listing'}
               </button>
             </div>
@@ -338,8 +338,7 @@ const OutfitDetail = () => {
           {/* Submit */}
           <form
             onSubmit={submitReview}
-            className="mt-8 max-w-xl space-y-4 rounded-lg border border-gold-200 bg-cream-25 p-6"
-          >
+            className="mt-8 max-w-xl space-y-4 rounded-lg border border-gold-200 bg-cream-25 p-6">
             <h3 className="font-serif text-xl text-primary-900">Leave a review</h3>
             {reviewMsg && (
               <Alert color="primary" variant="light">

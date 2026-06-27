@@ -25,10 +25,18 @@ interface OutfitImageProps {
   withWatermark?: boolean;
 }
 
-const OutfitImage = ({ title, color, src, className = '', ratio = 'portrait', withWatermark = true }: OutfitImageProps) => {
+const OutfitImage = ({
+  title,
+  color,
+  src,
+  className = '',
+  ratio = 'portrait',
+  withWatermark = true,
+}: OutfitImageProps) => {
   if (src) {
     return (
-      <div className={`relative overflow-hidden ${ratio === 'portrait' ? 'aspect-[4/5]' : 'aspect-square'} ${className}`}>
+      <div
+        className={`relative overflow-hidden ${ratio === 'portrait' ? 'aspect-[4/5]' : 'aspect-square'} ${className}`}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={src} alt={title} className="h-full w-full object-cover" />
       </div>
@@ -54,8 +62,7 @@ const OutfitImage = ({ title, color, src, className = '', ratio = 'portrait', wi
       className={`relative flex items-center justify-center overflow-hidden ${
         ratio === 'portrait' ? 'aspect-[4/5]' : 'aspect-square'
       } ${className}`}
-      style={style}
-    >
+      style={style}>
       {/* decorative diamond pattern */}
       <svg className="absolute inset-0 h-full w-full opacity-15" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -72,16 +79,12 @@ const OutfitImage = ({ title, color, src, className = '', ratio = 'portrait', wi
       </svg>
 
       <div className="relative z-10 text-center">
-        <p
-          className="vc-wordmark text-[10px] opacity-70"
-          style={{ color: palette.ink }}
-        >
+        <p className="vc-wordmark text-[10px] opacity-70" style={{ color: palette.ink }}>
           Vastriq
         </p>
         <p
           className="mt-2 font-serif text-5xl"
-          style={{ color: palette.ink, fontFamily: '"Cormorant Garamond", Georgia, serif' }}
-        >
+          style={{ color: palette.ink, fontFamily: '"Cormorant Garamond", Georgia, serif' }}>
           {initials || 'VC'}
         </p>
       </div>
@@ -89,8 +92,7 @@ const OutfitImage = ({ title, color, src, className = '', ratio = 'portrait', wi
       {withWatermark && (
         <p
           className="absolute bottom-3 right-4 text-[9px] uppercase tracking-[0.3em] opacity-50"
-          style={{ color: palette.ink }}
-        >
+          style={{ color: palette.ink }}>
           {key || 'premium'}
         </p>
       )}

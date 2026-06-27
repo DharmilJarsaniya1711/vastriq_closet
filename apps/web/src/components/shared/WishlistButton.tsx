@@ -49,8 +49,7 @@ const WishlistButton = ({ outfitId, variant = 'icon', className }: WishlistButto
         radius="md"
         onClick={toggle}
         loading={busy}
-        className={className}
-      >
+        className={className}>
         {wishlisted ? '♥ Wishlisted' : '♡ Wishlist'}
       </Button>
     );
@@ -65,8 +64,7 @@ const WishlistButton = ({ outfitId, variant = 'icon', className }: WishlistButto
       loading={busy}
       aria-label={wishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
       className={className}
-      style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.15)' }}
-    >
+      style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.15)' }}>
       <span className={wishlisted ? 'text-lg text-red-500' : 'text-lg text-gray-400'}>
         {wishlisted ? '♥' : '♡'}
       </span>

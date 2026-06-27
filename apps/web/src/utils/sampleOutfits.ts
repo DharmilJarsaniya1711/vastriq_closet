@@ -79,7 +79,8 @@ export const SAMPLE_OUTFITS: SampleOutfit[] = [
     rentPerDay: 800,
     securityDeposit: 10000,
     sizes: ['Free'],
-    description: 'Statement polki choker with matching earrings — the finishing touch for the bride.',
+    description:
+      'Statement polki choker with matching earrings — the finishing touch for the bride.',
   },
 ];
 

@@ -33,7 +33,8 @@ const SettingsPage = () => {
       },
       {
         onSuccess: () => notifications.show({ title: 'Saved', message: 'Settings updated' }),
-        onError: (e) => notifications.show({ color: 'red', title: 'Error', message: (e as Error).message }),
+        onError: (e) =>
+          notifications.show({ color: 'red', title: 'Error', message: (e as Error).message }),
       }
     );
 
@@ -61,7 +62,11 @@ const SettingsPage = () => {
               When on, new listings go live immediately instead of waiting for moderation.
             </p>
           </div>
-          <Switch checked={autoApprove} onChange={(e) => setAutoApprove(e.currentTarget.checked)} color="primary" />
+          <Switch
+            checked={autoApprove}
+            onChange={(e) => setAutoApprove(e.currentTarget.checked)}
+            color="primary"
+          />
         </div>
 
         <Select

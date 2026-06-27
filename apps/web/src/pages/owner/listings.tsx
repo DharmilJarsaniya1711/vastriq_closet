@@ -74,9 +74,17 @@ const OwnerListings = () => {
                         <div className="h-12 w-10 flex-shrink-0 overflow-hidden rounded border border-gold-200">
                           {o.imageUrls?.[0] ? (
                             // eslint-disable-next-line @next/next/no-img-element
-                            <img src={o.imageUrls[0]} alt={o.title} className="h-full w-full object-cover" />
+                            <img
+                              src={o.imageUrls[0]}
+                              alt={o.title}
+                              className="h-full w-full object-cover"
+                            />
                           ) : (
-                            <OutfitImage title={o.title} color={o.color ?? ''} withWatermark={false} />
+                            <OutfitImage
+                              title={o.title}
+                              color={o.color ?? ''}
+                              withWatermark={false}
+                            />
                           )}
                         </div>
                         <div>
@@ -94,7 +102,9 @@ const OwnerListings = () => {
                         {o.status}
                       </Badge>
                       {o.status === 'REJECTED' && o.rejectionReason && (
-                        <p className="mt-1 max-w-[180px] text-[10px] text-red-500">{o.rejectionReason}</p>
+                        <p className="mt-1 max-w-[180px] text-[10px] text-red-500">
+                          {o.rejectionReason}
+                        </p>
                       )}
                     </Table.Td>
                     <Table.Td>
@@ -105,8 +115,7 @@ const OwnerListings = () => {
                             size="xs"
                             color="primary"
                             component={Link}
-                            href={`/outfit/${o.slug}`}
-                          >
+                            href={`/outfit/${o.slug}`}>
                             View
                           </Button>
                         )}
@@ -115,8 +124,7 @@ const OwnerListings = () => {
                           size="xs"
                           color="primary"
                           component={Link}
-                          href={`/owner/listings/${o.id}/edit`}
-                        >
+                          href={`/owner/listings/${o.id}/edit`}>
                           Edit
                         </Button>
                       </div>

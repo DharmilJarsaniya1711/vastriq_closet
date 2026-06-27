@@ -26,7 +26,9 @@ const WishlistPage = () => {
       <StoreShell>
         <section className="container mx-auto px-6 py-20 text-center">
           <h1 className="font-serif text-3xl text-primary-900">Please log in</h1>
-          <p className="mt-3 text-sm text-gray-500">Sign in to see the outfits you&apos;ve saved.</p>
+          <p className="mt-3 text-sm text-gray-500">
+            Sign in to see the outfits you&apos;ve saved.
+          </p>
           <Button className="mt-6" color="primary" component={Link} href="/login">
             Login
           </Button>
@@ -42,7 +44,9 @@ const WishlistPage = () => {
         <p className="vc-wordmark text-xs text-gold-700">Saved</p>
         <h1 className="mt-2 font-serif text-4xl text-primary-900">My wishlist</h1>
         <p className="mt-1 text-sm text-gray-500">
-          {items?.length ? `${items.length} outfit${items.length === 1 ? '' : 's'} saved` : 'Outfits you save will appear here.'}
+          {items?.length
+            ? `${items.length} outfit${items.length === 1 ? '' : 's'} saved`
+            : 'Outfits you save will appear here.'}
         </p>
 
         {!items || items.length === 0 ? (

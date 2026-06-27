@@ -2,9 +2,6 @@ import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom'
 
 import { getUser } from './apis/requests/auth.requests';
 import DashboardLayout from './components/layouts/DashboardLayout';
-import ErrorPage from './pages/error';
-import ForgotPassword from './pages/forgot-password';
-import Root from './pages';
 import Catalog from './pages/dashboard/catalog';
 import Cms from './pages/dashboard/cms';
 import Contact from './pages/dashboard/contact';
@@ -14,6 +11,9 @@ import Reports from './pages/dashboard/reports';
 import Reviews from './pages/dashboard/reviews';
 import Settings from './pages/dashboard/settings';
 import Users from './pages/dashboard/users';
+import ErrorPage from './pages/error';
+import ForgotPassword from './pages/forgot-password';
+import Root from './pages';
 import useZStore from './store';
 
 const dashboardLoader = async () => {

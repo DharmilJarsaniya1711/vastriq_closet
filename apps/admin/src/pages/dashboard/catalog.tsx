@@ -29,7 +29,8 @@ const CatalogTab = ({ type, activeKey, extraLabel, extraKey }: TabConfig) => {
         setName('');
         setExtra('');
       },
-      onError: (e) => notifications.show({ color: 'red', title: 'Error', message: (e as Error).message }),
+      onError: (e) =>
+        notifications.show({ color: 'red', title: 'Error', message: (e as Error).message }),
     });
   };
 
@@ -38,7 +39,8 @@ const CatalogTab = ({ type, activeKey, extraLabel, extraKey }: TabConfig) => {
     update.mutate(
       { id: item.id, body: { [activeKey]: !current } },
       {
-        onError: (e) => notifications.show({ color: 'red', title: 'Error', message: (e as Error).message }),
+        onError: (e) =>
+          notifications.show({ color: 'red', title: 'Error', message: (e as Error).message }),
       }
     );
   };

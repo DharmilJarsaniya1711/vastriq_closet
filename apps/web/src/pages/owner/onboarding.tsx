@@ -28,10 +28,26 @@ const benefits = [
 ];
 
 const steps = [
-  { n: '01', title: 'Verify your mobile', body: 'Sign in with your mobile number — a 6-digit OTP is all it takes.' },
-  { n: '02', title: 'Add your outfit', body: 'Upload photos, write a short description and set your rent per day and refundable deposit.' },
-  { n: '03', title: 'Get approved', body: 'Our team reviews your listing to keep the catalogue trustworthy, then it goes live.' },
-  { n: '04', title: 'Connect with renters', body: 'Interested renters reach out — you agree the details and hand over the outfit directly.' },
+  {
+    n: '01',
+    title: 'Verify your mobile',
+    body: 'Sign in with your mobile number — a 6-digit OTP is all it takes.',
+  },
+  {
+    n: '02',
+    title: 'Add your outfit',
+    body: 'Upload photos, write a short description and set your rent per day and refundable deposit.',
+  },
+  {
+    n: '03',
+    title: 'Get approved',
+    body: 'Our team reviews your listing to keep the catalogue trustworthy, then it goes live.',
+  },
+  {
+    n: '04',
+    title: 'Connect with renters',
+    body: 'Interested renters reach out — you agree the details and hand over the outfit directly.',
+  },
 ];
 
 const OwnerOnboarding = () => (
@@ -47,13 +63,25 @@ const OwnerOnboarding = () => (
             Earn from the outfits already in your closet.
           </h1>
           <p className="mt-6 max-w-lg text-lg leading-relaxed text-gray-500">
-            Vastriq Closet partners with brides, designers, and brands to rent out their bridal &amp; festive collections — beautifully, and on terms you control.
+            Vastriq Closet partners with brides, designers, and brands to rent out their bridal
+            &amp; festive collections — beautifully, and on terms you control.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
-            <Button size="lg" color="primary" radius="md" component={Link} href="/owner/listings/new">
+            <Button
+              size="lg"
+              color="primary"
+              radius="md"
+              component={Link}
+              href="/owner/listings/new">
               Start listing
             </Button>
-            <Button size="lg" variant="outline" color="primary" radius="md" component={Link} href="#how">
+            <Button
+              size="lg"
+              variant="outline"
+              color="primary"
+              radius="md"
+              component={Link}
+              href="#how">
               How it works
             </Button>
           </div>
@@ -62,8 +90,7 @@ const OwnerOnboarding = () => (
           {benefits.map((b) => (
             <div
               key={b.title}
-              className="rounded-lg border border-gold-200 bg-cream-25 p-5 shadow-sm"
-            >
+              className="rounded-lg border border-gold-200 bg-cream-25 p-5 shadow-sm">
               <div className="text-2xl">{b.icon}</div>
               <h3 className="mt-3 font-serif text-lg text-primary-900">{b.title}</h3>
               <p className="mt-1 text-xs leading-relaxed text-gray-500">{b.body}</p>
@@ -81,7 +108,9 @@ const OwnerOnboarding = () => (
     <section id="how" className="container mx-auto px-6 py-16">
       <div className="mb-12 text-center">
         <p className="vc-wordmark text-xs text-gold-700">Get started</p>
-        <h2 className="mt-2 font-serif text-4xl text-primary-900">Four steps to your first booking</h2>
+        <h2 className="mt-2 font-serif text-4xl text-primary-900">
+          Four steps to your first booking
+        </h2>
       </div>
       <div className="grid gap-6 md:grid-cols-4">
         {steps.map((s) => (
@@ -98,7 +127,9 @@ const OwnerOnboarding = () => (
     <section className="bg-primary-900 py-16 text-cream-50">
       <div className="container mx-auto px-6 text-center">
         <h2 className="font-serif text-4xl">Ready to list?</h2>
-        <p className="mt-3 text-cream-100/80">It takes less than 5 minutes to add your first outfit.</p>
+        <p className="mt-3 text-cream-100/80">
+          It takes less than 5 minutes to add your first outfit.
+        </p>
         <div className="mt-6">
           <Button size="lg" color="gold" radius="md" component={Link} href="/owner/listings/new">
             Continue

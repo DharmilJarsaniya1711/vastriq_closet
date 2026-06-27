@@ -52,7 +52,14 @@ const TrendChart = ({ title, subtitle, data }: TrendChartProps) => {
           const y = pad.t + innerH * (1 - t);
           return (
             <g key={t}>
-              <line x1={pad.l} y1={y} x2={pad.l + innerW} y2={y} stroke="#F2E6B6" strokeDasharray="2 4" />
+              <line
+                x1={pad.l}
+                y1={y}
+                x2={pad.l + innerW}
+                y2={y}
+                stroke="#F2E6B6"
+                strokeDasharray="2 4"
+              />
               <text x={pad.l - 6} y={y + 4} fontSize="10" textAnchor="end" fill="#9A6F08">
                 {Math.round(maxV * t).toLocaleString('en-IN')}
               </text>

@@ -11,8 +11,9 @@ import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 import { HydrationBoundary, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { Cinzel, Cormorant_Garamond, Inter } from 'next/font/google';
 import type { AppProps } from 'next/app';
+// eslint-disable-next-line camelcase -- next/font export names are fixed by Next.js
+import { Cinzel, Cormorant_Garamond, Inter } from 'next/font/google';
 
 import RouterTransition from '@/components/RouterTransition';
 import theme from '@/styles/theme';

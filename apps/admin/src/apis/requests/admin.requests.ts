@@ -45,7 +45,12 @@ export interface AdminOutfit {
   rejectionReason?: string | null;
   imageUrls?: string[];
   category?: { name: string };
-  owner?: { firstName?: string; lastName?: string; phone?: string; ownerProfile?: { brandName?: string } | null };
+  owner?: {
+    firstName?: string;
+    lastName?: string;
+    phone?: string;
+    ownerProfile?: { brandName?: string } | null;
+  };
   createdAt: string;
 }
 
@@ -167,8 +172,7 @@ export interface Banner {
   createdAt: string;
 }
 
-export const listBanners = () =>
-  http.get<ApiResponse<{ items: Banner[] }>>('/admin/cms/banners');
+export const listBanners = () => http.get<ApiResponse<{ items: Banner[] }>>('/admin/cms/banners');
 export const createBanner = (body: Record<string, unknown>) =>
   http.post<ApiResponse<{ banner: Banner }>>('/admin/cms/banners', body);
 export const updateBanner = (id: string, body: Record<string, unknown>) =>

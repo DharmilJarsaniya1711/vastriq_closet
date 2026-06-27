@@ -51,8 +51,7 @@ export interface ApiWishlistItem {
   outfit: ApiWishlistOutfit;
 }
 
-export const fetchWishlist = () =>
-  http.get<ItemsResponse<ApiWishlistItem>>('/wishlist');
+export const fetchWishlist = () => http.get<ItemsResponse<ApiWishlistItem>>('/wishlist');
 
 export const addToWishlist = (outfitId: string) =>
   http.post<One<unknown>>('/wishlist', { outfitId });

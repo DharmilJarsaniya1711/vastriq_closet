@@ -7,14 +7,11 @@ const ReviewsPage = () => {
   const { data: reviews, isLoading } = usePendingReviews();
   const { approve, hide } = useModerateReview();
 
-  const act = (
-    fn: typeof approve,
-    id: string,
-    okMsg: string
-  ) =>
+  const act = (fn: typeof approve, id: string, okMsg: string) =>
     fn.mutate(id, {
       onSuccess: () => notifications.show({ title: 'Done', message: okMsg }),
-      onError: (e) => notifications.show({ color: 'red', title: 'Error', message: (e as Error).message }),
+      onError: (e) =>
+        notifications.show({ color: 'red', title: 'Error', message: (e as Error).message }),
     });
 
   return (
@@ -53,7 +50,8 @@ const ReviewsPage = () => {
                   </Table.Td>
                   <Table.Td>
                     <span className="text-sm text-gray-500">
-                      {[r.author?.firstName, r.author?.lastName].filter(Boolean).join(' ') || 'Anonymous'}
+                      {[r.author?.firstName, r.author?.lastName].filter(Boolean).join(' ') ||
+                        'Anonymous'}
                     </span>
                   </Table.Td>
                   <Table.Td>
@@ -66,8 +64,7 @@ const ReviewsPage = () => {
                         color="success"
                         variant="light"
                         loading={approve.isPending && approve.variables === r.id}
-                        onClick={() => act(approve, r.id, 'Review approved')}
-                      >
+                        onClick={() => act(approve, r.id, 'Review approved')}>
                         Approve
                       </Button>
                       <Button
@@ -75,8 +72,7 @@ const ReviewsPage = () => {
                         color="danger"
                         variant="light"
                         loading={hide.isPending && hide.variables === r.id}
-                        onClick={() => act(hide, r.id, 'Review hidden')}
-                      >
+                        onClick={() => act(hide, r.id, 'Review hidden')}>
                         Hide
                       </Button>
                     </Group>

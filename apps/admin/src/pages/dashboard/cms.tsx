@@ -26,7 +26,11 @@ const CmsPage = () => {
 
   const onCreate = async () => {
     if (!title.trim() || !file) {
-      notifications.show({ color: 'red', title: 'Missing', message: 'Title and image are required' });
+      notifications.show({
+        color: 'red',
+        title: 'Missing',
+        message: 'Title and image are required',
+      });
       return;
     }
     setBusy(true);
@@ -53,13 +57,17 @@ const CmsPage = () => {
   const toggle = (b: Banner) =>
     update.mutate(
       { id: b.id, body: { isActive: !b.isActive } },
-      { onError: (e) => notifications.show({ color: 'red', title: 'Error', message: (e as Error).message }) }
+      {
+        onError: (e) =>
+          notifications.show({ color: 'red', title: 'Error', message: (e as Error).message }),
+      }
     );
 
   const del = (b: Banner) =>
     remove.mutate(b.id, {
       onSuccess: () => notifications.show({ title: 'Removed', message: 'Banner deleted' }),
-      onError: (e) => notifications.show({ color: 'red', title: 'Error', message: (e as Error).message }),
+      onError: (e) =>
+        notifications.show({ color: 'red', title: 'Error', message: (e as Error).message }),
     });
 
   return (
@@ -67,7 +75,9 @@ const CmsPage = () => {
       <div>
         <p className="vc-wordmark text-xs text-gold-700">Storefront</p>
         <h1 className="mt-2 font-serif text-4xl text-primary-900">CMS / Banners</h1>
-        <p className="mt-1 text-sm text-gray-500">Manage the hero banners shown on the storefront landing.</p>
+        <p className="mt-1 text-sm text-gray-500">
+          Manage the hero banners shown on the storefront landing.
+        </p>
       </div>
 
       {/* Create */}
@@ -127,8 +137,12 @@ const CmsPage = () => {
               {banners?.map((b) => (
                 <Table.Tr key={b.id}>
                   <Table.Td>
-                    {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-                    <img src={b.imageUrl} alt={b.title} className="h-12 w-24 rounded border border-gold-200 object-cover" />
+                    {}
+                    <img
+                      src={b.imageUrl}
+                      alt={b.title}
+                      className="h-12 w-24 rounded border border-gold-200 object-cover"
+                    />
                   </Table.Td>
                   <Table.Td className="font-medium text-primary-900">{b.title}</Table.Td>
                   <Table.Td className="text-xs text-gray-400">{b.ctaUrl ?? '—'}</Table.Td>

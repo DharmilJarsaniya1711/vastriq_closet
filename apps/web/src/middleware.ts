@@ -13,9 +13,7 @@ const PUBLIC_EXCEPTIONS = ['/owner/onboarding'];
 export function middleware(req: NextRequest) {
   const { pathname, search } = req.nextUrl;
 
-  const isPublic = PUBLIC_EXCEPTIONS.some(
-    (p) => pathname === p || pathname.startsWith(`${p}/`)
-  );
+  const isPublic = PUBLIC_EXCEPTIONS.some((p) => pathname === p || pathname.startsWith(`${p}/`));
   if (isPublic) return NextResponse.next();
 
   const isProtected = PROTECTED_PREFIXES.some(

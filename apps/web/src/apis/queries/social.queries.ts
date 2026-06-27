@@ -48,5 +48,4 @@ export const useRemoveFromWishlist = () => {
   });
 };
 
-export const useFileReport = () =>
-  useMutation({ mutationFn: fileReport });
+export const useFileReport = () => useMutation({ mutationFn: fileReport });

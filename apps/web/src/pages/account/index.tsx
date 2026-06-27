@@ -69,7 +69,9 @@ const AccountPage = () => {
       <StoreShell>
         <section className="container mx-auto px-6 py-20 text-center">
           <h1 className="font-serif text-3xl text-primary-900">Please log in</h1>
-          <p className="mt-3 text-sm text-gray-500">You need to be signed in to view your account.</p>
+          <p className="mt-3 text-sm text-gray-500">
+            You need to be signed in to view your account.
+          </p>
           <Button className="mt-6" color="primary" component={Link} href="/login">
             Login
           </Button>
@@ -89,8 +91,7 @@ const AccountPage = () => {
 
         <form
           onSubmit={saveProfile}
-          className="mt-8 space-y-4 rounded-lg border border-gold-200 bg-cream-25 p-6 shadow-sm"
-        >
+          className="mt-8 space-y-4 rounded-lg border border-gold-200 bg-cream-25 p-6 shadow-sm">
           {msg && (
             <Alert color="primary" variant="light">
               {msg}
@@ -120,29 +121,25 @@ const AccountPage = () => {
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Link
             href="/wishlist"
-            className="rounded-lg border border-gold-200 bg-cream-25 p-5 text-center hover:border-gold-500"
-          >
+            className="rounded-lg border border-gold-200 bg-cream-25 p-5 text-center hover:border-gold-500">
             <p className="font-serif text-lg text-primary-900">My wishlist</p>
             <p className="mt-1 text-xs text-gray-400">Outfits you saved</p>
           </Link>
           <Link
             href="/owner/listings"
-            className="rounded-lg border border-gold-200 bg-cream-25 p-5 text-center hover:border-gold-500"
-          >
+            className="rounded-lg border border-gold-200 bg-cream-25 p-5 text-center hover:border-gold-500">
             <p className="font-serif text-lg text-primary-900">My listings</p>
             <p className="mt-1 text-xs text-gray-400">Manage outfits you rent out</p>
           </Link>
           <Link
             href="/owner/listings/new"
-            className="rounded-lg border border-gold-200 bg-cream-25 p-5 text-center hover:border-gold-500"
-          >
+            className="rounded-lg border border-gold-200 bg-cream-25 p-5 text-center hover:border-gold-500">
             <p className="font-serif text-lg text-primary-900">List an outfit</p>
             <p className="mt-1 text-xs text-gray-400">Earn from your closet</p>
           </Link>
           <Link
             href="/outfits"
-            className="rounded-lg border border-gold-200 bg-cream-25 p-5 text-center hover:border-gold-500"
-          >
+            className="rounded-lg border border-gold-200 bg-cream-25 p-5 text-center hover:border-gold-500">
             <p className="font-serif text-lg text-primary-900">Browse</p>
             <p className="mt-1 text-xs text-gray-400">Discover outfits to rent</p>
           </Link>

@@ -55,7 +55,7 @@ const EditListing = () => {
         <section className="container mx-auto px-6 py-20 text-center">
           <p className="vc-wordmark text-xs text-gold-700">Saved</p>
           <h1 className="mt-3 font-serif text-4xl text-primary-900">Changes saved</h1>
-          <p className="mt-2 max-w-md mx-auto text-sm text-gray-500">
+          <p className="mx-auto mt-2 max-w-md text-sm text-gray-500">
             Edited listings re-enter moderation before going live again.
           </p>
           <div className="mt-6">
@@ -74,7 +74,9 @@ const EditListing = () => {
       <section className="container mx-auto max-w-3xl px-6 py-12">
         <p className="vc-wordmark text-xs text-gold-700">Owner</p>
         <h1 className="mt-2 font-serif text-4xl text-primary-900">Edit listing</h1>
-        <p className="mt-1 text-sm text-gray-500">Saving changes sends the listing back for review.</p>
+        <p className="mt-1 text-sm text-gray-500">
+          Saving changes sends the listing back for review.
+        </p>
         <OutfitForm
           requireImages={false}
           existingImageUrls={outfit.imageUrls ?? []}

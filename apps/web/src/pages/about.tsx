@@ -37,9 +37,9 @@ const AboutPage = () => (
         Ethnic wear, worn more than once.
       </h1>
       <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-gray-500">
-        VASTRIQ CLOSET began with a simple thought: the most beautiful outfits in India spend
-        most of their lives in a wardrobe. We built a place where those pieces can be discovered,
-        rented and loved again — connecting owners and renters, beautifully and on their own terms.
+        VASTRIQ CLOSET began with a simple thought: the most beautiful outfits in India spend most
+        of their lives in a wardrobe. We built a place where those pieces can be discovered, rented
+        and loved again — connecting owners and renters, beautifully and on their own terms.
       </p>
     </section>
 
@@ -55,7 +55,9 @@ const AboutPage = () => (
       </div>
       <div className="grid gap-6 md:grid-cols-2">
         {values.map((v) => (
-          <div key={v.title} className="rounded-lg border border-gold-200 bg-cream-25 p-7 shadow-sm">
+          <div
+            key={v.title}
+            className="rounded-lg border border-gold-200 bg-cream-25 p-7 shadow-sm">
             <h3 className="font-serif text-2xl text-primary-900">{v.title}</h3>
             <p className="mt-2 text-sm leading-relaxed text-gray-500">{v.body}</p>
           </div>
@@ -69,7 +71,8 @@ const AboutPage = () => (
         <div>
           <h2 className="font-serif text-4xl">Have a question or an idea?</h2>
           <p className="mt-3 max-w-md text-cream-100/80">
-            We&apos;d love to hear from you — whether you&apos;re an owner, a renter, or just curious.
+            We&apos;d love to hear from you — whether you&apos;re an owner, a renter, or just
+            curious.
           </p>
         </div>
         <div className="md:text-right">

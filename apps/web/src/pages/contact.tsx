@@ -57,13 +57,15 @@ const ContactPage = () => {
             <p className="vc-wordmark text-xs text-gold-700">Get in touch</p>
             <h1 className="mt-2 font-serif text-4xl text-primary-900">Contact us</h1>
             <p className="mt-4 text-sm leading-relaxed text-gray-500">
-              Questions about listing, renting, or your account? Send us a message and our team
-              will get back to you by email. We usually reply within one working day.
+              Questions about listing, renting, or your account? Send us a message and our team will
+              get back to you by email. We usually reply within one working day.
             </p>
             <div className="mt-8 space-y-4 text-sm">
               <div>
                 <p className="font-medium text-primary-900">Email</p>
-                <a href="mailto:support@vastriqcloset.com" className="text-primary-700 hover:underline">
+                <a
+                  href="mailto:support@vastriqcloset.com"
+                  className="text-primary-700 hover:underline">
                   support@vastriqcloset.com
                 </a>
               </div>
@@ -80,7 +82,8 @@ const ContactPage = () => {
               <div className="py-10 text-center">
                 <p className="font-serif text-2xl text-primary-900">Message sent ✓</p>
                 <p className="mt-2 text-sm text-gray-500">
-                  Thanks for reaching out — we&apos;ve received your query and will reply by email soon.
+                  Thanks for reaching out — we&apos;ve received your query and will reply by email
+                  soon.
                 </p>
                 <Button
                   className="mt-6"
@@ -90,8 +93,7 @@ const ContactPage = () => {
                     setSubject('');
                     setMessage('');
                     setDone(false);
-                  }}
-                >
+                  }}>
                   Send another
                 </Button>
               </div>

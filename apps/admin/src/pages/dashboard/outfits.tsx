@@ -1,5 +1,15 @@
 import { ReactNode, useState } from 'react';
-import { Badge, Button, Drawer, Group, Loader, Modal, Select, Table, Textarea } from '@mantine/core';
+import {
+  Badge,
+  Button,
+  Drawer,
+  Group,
+  Loader,
+  Modal,
+  Select,
+  Table,
+  Textarea,
+} from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 
@@ -37,7 +47,8 @@ const OutfitsPage = () => {
   const onApprove = (id: string) =>
     approve.mutate(id, {
       onSuccess: () => notifications.show({ title: 'Approved', message: 'Listing is now live' }),
-      onError: (e) => notifications.show({ color: 'red', title: 'Error', message: (e as Error).message }),
+      onError: (e) =>
+        notifications.show({ color: 'red', title: 'Error', message: (e as Error).message }),
     });
 
   const openReject = (id: string) => {
@@ -55,7 +66,8 @@ const OutfitsPage = () => {
           notifications.show({ title: 'Rejected', message: 'Listing was rejected' });
           close();
         },
-        onError: (e) => notifications.show({ color: 'red', title: 'Error', message: (e as Error).message }),
+        onError: (e) =>
+          notifications.show({ color: 'red', title: 'Error', message: (e as Error).message }),
       }
     );
   };
@@ -65,7 +77,9 @@ const OutfitsPage = () => {
       <div>
         <p className="vc-wordmark text-xs text-gold-700">Inventory</p>
         <h1 className="mt-2 font-serif text-4xl text-primary-900">Listings moderation</h1>
-        <p className="mt-1 text-sm text-gray-500">Approve or reject listings before they go live.</p>
+        <p className="mt-1 text-sm text-gray-500">
+          Approve or reject listings before they go live.
+        </p>
       </div>
 
       <div className="max-w-xs">
@@ -102,8 +116,11 @@ const OutfitsPage = () => {
                   <Table.Td>
                     <div className="flex items-center gap-3">
                       {o.imageUrls?.[0] && (
-                        // eslint-disable-next-line jsx-a11y/img-redundant-alt
-                        <img src={o.imageUrls[0]} alt={o.title} className="h-12 w-10 rounded border border-gold-200 object-cover" />
+                        <img
+                          src={o.imageUrls[0]}
+                          alt={o.title}
+                          className="h-12 w-10 rounded border border-gold-200 object-cover"
+                        />
                       )}
                       <div>
                         <p className="font-medium text-primary-900">{o.title}</p>
@@ -125,7 +142,9 @@ const OutfitsPage = () => {
                       {o.status}
                     </Badge>
                     {o.status === 'REJECTED' && o.rejectionReason && (
-                      <p className="mt-1 max-w-[160px] text-[10px] text-red-500">{o.rejectionReason}</p>
+                      <p className="mt-1 max-w-[160px] text-[10px] text-red-500">
+                        {o.rejectionReason}
+                      </p>
                     )}
                   </Table.Td>
                   <Table.Td>
@@ -139,8 +158,7 @@ const OutfitsPage = () => {
                         variant="light"
                         disabled={o.status === 'ACTIVE'}
                         loading={approve.isPending && approve.variables === o.id}
-                        onClick={() => onApprove(o.id)}
-                      >
+                        onClick={() => onApprove(o.id)}>
                         Approve
                       </Button>
                       <Button
@@ -148,8 +166,7 @@ const OutfitsPage = () => {
                         color="danger"
                         variant="light"
                         disabled={o.status === 'REJECTED'}
-                        onClick={() => openReject(o.id)}
-                      >
+                        onClick={() => openReject(o.id)}>
                         Reject
                       </Button>
                     </Group>
@@ -184,8 +201,7 @@ const OutfitsPage = () => {
             color="danger"
             disabled={reason.trim().length < 3}
             loading={reject.isPending}
-            onClick={submitReject}
-          >
+            onClick={submitReject}>
             Reject listing
           </Button>
         </Group>
@@ -197,8 +213,7 @@ const OutfitsPage = () => {
         onClose={() => setReviewOutfit(null)}
         position="right"
         size="lg"
-        title="Review listing"
-      >
+        title="Review listing">
         {reviewOutfit && (
           <div className="space-y-4">
             {(reviewOutfit.imageUrls?.length ?? 0) > 0 && (
@@ -223,7 +238,9 @@ const OutfitsPage = () => {
             <div className="rounded-lg border border-gold-200 bg-cream-25 p-4">
               <Field label="Owner">
                 {reviewOutfit.owner?.ownerProfile?.brandName ??
-                  [reviewOutfit.owner?.firstName, reviewOutfit.owner?.lastName].filter(Boolean).join(' ')}
+                  [reviewOutfit.owner?.firstName, reviewOutfit.owner?.lastName]
+                    .filter(Boolean)
+                    .join(' ')}
                 {reviewOutfit.owner?.phone ? ` · ${reviewOutfit.owner.phone}` : ''}
               </Field>
               <Field label="Category">{reviewOutfit.category?.name}</Field>
@@ -251,8 +268,7 @@ const OutfitsPage = () => {
                 onClick={() => {
                   onApprove(reviewOutfit.id);
                   setReviewOutfit(null);
-                }}
-              >
+                }}>
                 Approve
               </Button>
               <Button
@@ -260,11 +276,10 @@ const OutfitsPage = () => {
                 variant="light"
                 disabled={reviewOutfit.status === 'REJECTED'}
                 onClick={() => {
-                  const id = reviewOutfit.id;
+                  const { id } = reviewOutfit;
                   setReviewOutfit(null);
                   openReject(id);
-                }}
-              >
+                }}>
                 Reject
               </Button>
             </Group>

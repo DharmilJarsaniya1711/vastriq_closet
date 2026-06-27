@@ -33,8 +33,7 @@ const HeaderAuth = () => {
       <Menu.Target>
         <button
           type="button"
-          className="flex items-center gap-2 text-sm font-medium text-primary-900 hover:underline"
-        >
+          className="flex items-center gap-2 text-sm font-medium text-primary-900 hover:underline">
           <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary-900 text-xs text-cream-50">
             {name.charAt(0).toUpperCase()}
           </span>

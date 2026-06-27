@@ -121,8 +121,7 @@ const OutfitForm = ({
   return (
     <form
       className="mt-10 space-y-6 rounded-lg border border-gold-200 bg-cream-25 p-8 shadow-sm"
-      onSubmit={handleSubmit}
-    >
+      onSubmit={handleSubmit}>
       {error && (
         <Alert color="red" variant="light">
           {error}
@@ -252,7 +251,7 @@ const OutfitForm = ({
               <img
                 key={src}
                 src={src}
-                alt={`New photo ${i + 1}`}
+                alt={`New outfit ${i + 1}`}
                 className="h-24 w-20 rounded-md border border-gold-300 object-cover"
               />
             ))}
@@ -269,7 +268,7 @@ const OutfitForm = ({
                 <img
                   key={src}
                   src={src}
-                  alt={`Current photo ${i + 1}`}
+                  alt={`Current outfit ${i + 1}`}
                   className="h-24 w-20 rounded-md border border-gold-200 object-cover"
                 />
               ))}

@@ -26,6 +26,34 @@ const SORTS = [
 
 const inr = (n: number) => `₹${n.toLocaleString('en-IN')}`;
 
+const FilterGroup = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div>
+    <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-gold-700">{title}</p>
+    {children}
+  </div>
+);
+
+const Pill = ({
+  active,
+  onClick,
+  children,
+}: {
+  active?: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className={`rounded-full border px-4 py-1.5 text-sm transition ${
+      active
+        ? 'border-primary-900 bg-primary-900 text-cream-50'
+        : 'border-gold-200 bg-cream-25 text-gray-600 hover:border-gold-500 hover:text-primary-900'
+    }`}>
+    {children}
+  </button>
+);
+
 const OutfitsPage = () => {
   const router = useRouter();
   const query = router.query as Record<string, string | undefined>;
@@ -112,7 +140,10 @@ const OutfitsPage = () => {
       <FilterGroup title="Occasion">
         <div className="flex flex-wrap gap-2">
           {(occasions ?? []).map((o) => (
-            <Pill key={o.slug} active={occasion === o.slug} onClick={() => toggle('occasion', o.slug)}>
+            <Pill
+              key={o.slug}
+              active={occasion === o.slug}
+              onClick={() => toggle('occasion', o.slug)}>
               {o.name}
             </Pill>
           ))}
@@ -132,8 +163,7 @@ const OutfitsPage = () => {
                   active
                     ? 'border-primary-900 bg-primary-900 text-cream-50'
                     : 'border-gold-200 bg-cream-25 text-gray-600 hover:border-gold-500'
-                }`}
-              >
+                }`}>
                 <ColorSwatch color={c.hex ?? '#ccc'} size={16} withShadow={false} />
                 {c.name}
               </button>
@@ -194,16 +224,13 @@ const OutfitsPage = () => {
             <p className="vc-wordmark text-xs text-gold-700">Collection</p>
             <h1 className="mt-2 font-serif text-4xl text-primary-900">Browse outfits</h1>
             <p className="mt-1 text-sm text-gray-500">
-              {isLoading ? 'Loading…' : `${items.length} outfit${items.length === 1 ? '' : 's'} on rent`}
+              {isLoading
+                ? 'Loading…'
+                : `${items.length} outfit${items.length === 1 ? '' : 's'} on rent`}
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <Button
-              variant="default"
-              radius="md"
-              className="lg:hidden"
-              onClick={drawerCtl.open}
-            >
+            <Button variant="default" radius="md" className="lg:hidden" onClick={drawerCtl.open}>
               Filters{activeChips.length ? ` (${activeChips.length})` : ''}
             </Button>
             <Select
@@ -224,15 +251,17 @@ const OutfitsPage = () => {
             e.preventDefault();
             setParam('q', term.trim() || undefined);
           }}
-          className="mt-6 max-w-xl"
-        >
+          className="mt-6 max-w-xl">
           <TextInput
             radius="md"
             placeholder="Search by name — e.g. lehenga, emerald, bridal"
             value={term}
             onChange={(e) => setTerm(e.currentTarget.value)}
             rightSection={
-              <button type="submit" aria-label="Search" className="text-gray-400 hover:text-primary-900">
+              <button
+                type="submit"
+                aria-label="Search"
+                className="text-gray-400 hover:text-primary-900">
                 ⏎
               </button>
             }
@@ -245,7 +274,10 @@ const OutfitsPage = () => {
             All
           </Pill>
           {(categories ?? []).map((c) => (
-            <Pill key={c.slug} active={category === c.slug} onClick={() => toggle('category', c.slug)}>
+            <Pill
+              key={c.slug}
+              active={category === c.slug}
+              onClick={() => toggle('category', c.slug)}>
               {c.name}
             </Pill>
           ))}
@@ -259,8 +291,7 @@ const OutfitsPage = () => {
                 key={chip.key}
                 type="button"
                 onClick={() => removeChip(chip.key)}
-                className="flex items-center gap-1.5 rounded-full border border-gold-300 bg-cream-25 px-3 py-1 text-xs text-primary-900 hover:border-primary-900"
-              >
+                className="flex items-center gap-1.5 rounded-full border border-gold-300 bg-cream-25 px-3 py-1 text-xs text-primary-900 hover:border-primary-900">
                 {chip.label}
                 <span className="text-gray-400">✕</span>
               </button>
@@ -268,8 +299,7 @@ const OutfitsPage = () => {
             <button
               type="button"
               onClick={clearAll}
-              className="px-2 text-xs font-medium text-primary-700 hover:underline"
-            >
+              className="px-2 text-xs font-medium text-primary-700 hover:underline">
               Clear all
             </button>
           </div>
@@ -336,34 +366,5 @@ const OutfitsPage = () => {
     </StoreShell>
   );
 };
-
-const FilterGroup = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <div>
-    <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-gold-700">{title}</p>
-    {children}
-  </div>
-);
-
-const Pill = ({
-  active,
-  onClick,
-  children,
-}: {
-  active?: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) => (
-  <button
-    type="button"
-    onClick={onClick}
-    className={`rounded-full border px-4 py-1.5 text-sm transition ${
-      active
-        ? 'border-primary-900 bg-primary-900 text-cream-50'
-        : 'border-gold-200 bg-cream-25 text-gray-600 hover:border-gold-500 hover:text-primary-900'
-    }`}
-  >
-    {children}
-  </button>
-);
 
 export default OutfitsPage;

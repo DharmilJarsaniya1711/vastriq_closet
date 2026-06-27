@@ -48,7 +48,7 @@ const Login = () => {
       setCookie(ACCESS_TOKEN, accessToken);
       setCookie(REFRESH_TOKEN, refreshToken);
       // Return the user to the page they were trying to reach, if any.
-      const next = router.query.next;
+      const { next } = router.query;
       const dest = typeof next === 'string' && next.startsWith('/') ? next : '/';
       router.push(dest);
     } catch (e: unknown) {
@@ -117,17 +117,14 @@ const Login = () => {
                 onChange={setCode}
               />
             </div>
-            {devHint && (
-              <p className="text-center text-xs text-gold-700">{devHint}</p>
-            )}
+            {devHint && <p className="text-center text-xs text-gold-700">{devHint}</p>}
             <Button
               fullWidth
               size="md"
               color="primary"
               loading={loading}
               disabled={code.length !== 6}
-              onClick={submitOtp}
-            >
+              onClick={submitOtp}>
               Verify & continue
             </Button>
             <button
@@ -136,8 +133,7 @@ const Login = () => {
               onClick={() => {
                 setCode('');
                 setStep('phone');
-              }}
-            >
+              }}>
               ← Use a different number
             </button>
           </div>

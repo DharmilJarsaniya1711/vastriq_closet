@@ -9,8 +9,6 @@ import {
   deleteBanner,
   getOverview,
   getSettings,
-  PlatformSettings,
-  updateSettings,
   hideReview,
   listAdminOutfits,
   listAdminUsers,
@@ -19,11 +17,13 @@ import {
   listContactQueries,
   listPendingReviews,
   listReports,
+  PlatformSettings,
   rejectOutfit,
   resolveContactQuery,
   resolveReport,
   updateBanner,
   updateCatalog,
+  updateSettings,
 } from '../requests/admin.requests';
 
 export const useOverview = () =>

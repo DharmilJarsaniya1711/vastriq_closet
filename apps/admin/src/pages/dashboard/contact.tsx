@@ -30,7 +30,9 @@ const ContactPage = () => {
       <div>
         <p className="vc-wordmark text-xs text-gold-700">Support</p>
         <h1 className="mt-2 font-serif text-4xl text-primary-900">Contact queries</h1>
-        <p className="mt-1 text-sm text-gray-500">Messages submitted from the public “Contact us” form.</p>
+        <p className="mt-1 text-sm text-gray-500">
+          Messages submitted from the public “Contact us” form.
+        </p>
       </div>
 
       <div className="max-w-xs">
@@ -65,7 +67,9 @@ const ContactPage = () => {
                 <Table.Tr key={qr.id}>
                   <Table.Td>
                     <p className="text-sm font-medium text-primary-900">{qr.name}</p>
-                    <a href={`mailto:${qr.email}`} className="text-xs text-primary-700 hover:underline">
+                    <a
+                      href={`mailto:${qr.email}`}
+                      className="text-xs text-primary-700 hover:underline">
                       {qr.email}
                     </a>
                     {qr.phone && <p className="text-xs text-gray-400">{qr.phone}</p>}
@@ -74,7 +78,9 @@ const ContactPage = () => {
                     {qr.subject && (
                       <p className="text-sm font-medium text-primary-900">{qr.subject}</p>
                     )}
-                    <p className="max-w-md whitespace-pre-wrap text-xs text-gray-500">{qr.message}</p>
+                    <p className="max-w-md whitespace-pre-wrap text-xs text-gray-500">
+                      {qr.message}
+                    </p>
                   </Table.Td>
                   <Table.Td>
                     <Badge color={statusColor[qr.status] ?? 'gray'} variant="light">
@@ -93,8 +99,7 @@ const ContactPage = () => {
                           size="xs"
                           color="success"
                           variant="light"
-                          onClick={() => setStatusFor(qr.id, 'RESOLVED')}
-                        >
+                          onClick={() => setStatusFor(qr.id, 'RESOLVED')}>
                           Mark resolved
                         </Button>
                       ) : (
@@ -102,8 +107,7 @@ const ContactPage = () => {
                           size="xs"
                           color="gray"
                           variant="light"
-                          onClick={() => setStatusFor(qr.id, 'NEW')}
-                        >
+                          onClick={() => setStatusFor(qr.id, 'NEW')}>
                           Reopen
                         </Button>
                       )}

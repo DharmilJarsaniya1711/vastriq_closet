@@ -38,7 +38,9 @@ const SafetyPage = () => (
 
       <div className="mt-10 space-y-6">
         {points.map((p) => (
-          <div key={p.title} className="rounded-lg border border-gold-200 bg-cream-25 p-6 shadow-sm">
+          <div
+            key={p.title}
+            className="rounded-lg border border-gold-200 bg-cream-25 p-6 shadow-sm">
             <h2 className="font-serif text-xl text-primary-900">{p.title}</h2>
             <p className="mt-2 text-sm leading-relaxed text-gray-500">{p.body}</p>
           </div>

@@ -24,9 +24,9 @@ const NewListing = () => {
         <section className="container mx-auto px-6 py-20 text-center">
           <p className="vc-wordmark text-xs text-gold-700">Saved</p>
           <h1 className="mt-3 font-serif text-4xl text-primary-900">Listing submitted</h1>
-          <p className="mt-2 max-w-md mx-auto text-sm text-gray-500">
-            Depending on settings, your listing is either live now or queued for moderation. We&apos;ll
-            notify you once it&apos;s live.
+          <p className="mx-auto mt-2 max-w-md text-sm text-gray-500">
+            Depending on settings, your listing is either live now or queued for moderation.
+            We&apos;ll notify you once it&apos;s live.
           </p>
           <div className="mt-6 flex justify-center gap-3">
             <Button color="primary" component={Link} href="/owner/listings">
@@ -48,7 +48,8 @@ const NewListing = () => {
         <p className="vc-wordmark text-xs text-gold-700">Owner</p>
         <h1 className="mt-2 font-serif text-4xl text-primary-900">Add an outfit</h1>
         <p className="mt-1 text-sm text-gray-500">
-          Fill out the details below. Your listing goes into moderation before it&apos;s visible to renters.
+          Fill out the details below. Your listing goes into moderation before it&apos;s visible to
+          renters.
         </p>
         <OutfitForm requireImages submitLabel="Submit for review" onSubmit={handleSubmit} />
       </section>

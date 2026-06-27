@@ -77,8 +77,7 @@ const DashboardLayout = () => {
         header: { backgroundColor: '#FAF7F0', borderBottom: '1px solid rgba(212,175,55,0.3)' },
         navbar: { backgroundColor: '#FFFDF9', borderRight: '1px solid rgba(212,175,55,0.3)' },
       }}
-      padding="lg"
-    >
+      padding="lg">
       <AppShell.Header>
         <Group h="100%" px="md" justify="space-between">
           <Group>
@@ -120,8 +119,7 @@ const DashboardLayout = () => {
               <Menu.Item
                 color="red"
                 leftSection={<Icon icon="tabler:logout" />}
-                onClick={handleLogout}
-              >
+                onClick={handleLogout}>
                 Logout
               </Menu.Item>
             </Menu.Dropdown>
@@ -134,7 +132,10 @@ const DashboardLayout = () => {
           {navItems.map((n) => (
             <NavLink
               key={n.to}
-              active={location.pathname === n.to || (n.to !== '/dashboard' && location.pathname.startsWith(n.to))}
+              active={
+                location.pathname === n.to ||
+                (n.to !== '/dashboard' && location.pathname.startsWith(n.to))
+              }
               label={desktopOpened ? n.label : ''}
               leftSection={<Icon icon={n.icon} width={20} />}
               onClick={() => navigate(n.to)}

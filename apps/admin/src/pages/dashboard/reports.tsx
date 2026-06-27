@@ -20,13 +20,15 @@ const ReportsPage = () => {
     let resolution: string | undefined;
     if (next === 'ACTIONED' || next === 'DISMISSED') {
       // eslint-disable-next-line no-alert
-      resolution = window.prompt(`Resolution note for ${next.toLowerCase()} (optional):`) || undefined;
+      const note = window.prompt(`Resolution note for ${next.toLowerCase()} (optional):`);
+      resolution = note || undefined;
     }
     resolve.mutate(
       { id, status: next, resolution },
       {
         onSuccess: () => notifications.show({ title: 'Updated', message: `Report set to ${next}` }),
-        onError: (e) => notifications.show({ color: 'red', title: 'Error', message: (e as Error).message }),
+        onError: (e) =>
+          notifications.show({ color: 'red', title: 'Error', message: (e as Error).message }),
       }
     );
   };
@@ -97,10 +99,18 @@ const ReportsPage = () => {
                       <Button size="xs" variant="light" onClick={() => act(r.id, 'REVIEWING')}>
                         Reviewing
                       </Button>
-                      <Button size="xs" color="success" variant="light" onClick={() => act(r.id, 'ACTIONED')}>
+                      <Button
+                        size="xs"
+                        color="success"
+                        variant="light"
+                        onClick={() => act(r.id, 'ACTIONED')}>
                         Action
                       </Button>
-                      <Button size="xs" color="gray" variant="light" onClick={() => act(r.id, 'DISMISSED')}>
+                      <Button
+                        size="xs"
+                        color="gray"
+                        variant="light"
+                        onClick={() => act(r.id, 'DISMISSED')}>
                         Dismiss
                       </Button>
                     </Group>
